@@ -1,50 +1,27 @@
+//app.js
+
 //Importar modulos 
 //import express from "express" //En el package.json hay que agregar "type": "module"
 const express = require("express");
-const ProductManager = require("./ProductManager") ;
-
-const PORT = 8080;
 
 //Creación de una app de express
 const app = express();
 
-//Se importan los productos 
-const products = new ProductManager();
+const PORT = 8080;
 
-//http://localhost:8080/products -> Arroja todos los productos 
-//http://localhost:8080/products?limit=5 -> Arroja los primeros cinco 
 
-app.get("/products", (req,res) => {
 
-    //Lee el archivo de productos y los devuelve como obtejo 
-    const prods = products.getProducts();
-    //Verificar si se proporciono un limite 
-    const limit = req.query.limit;
+//MIDDLEWARE  
+app.use(express.json()); //Notacion JSON
+app.use(express.urlencoded({extended:true})); //Para recibir por query datos complejos
 
-    if(limit){
-        //Devuelve solo el numero de productos solicitados
-        res.send(prods.slice(0,limit));
-    }else {
-        //Devuelve todos los productos 
-        res.send(prods);
-    }
+//Vinculacion de rutas tipo common JS 
+const productsRouter = require("./routes/products.routes.js");
+const cartsRouter = require("./routes/carts.routes.js");
 
-});
-
-//http://localhost:8080/products/2 -> Devuelve solo el producto con id=2
-
-app.get("/products/:pid", (req,res) => {
-
-    let id = parseInt(req.params.pid);
-    const prod = products.getProductByid(id);
-
-    if(prod){
-        res.send(prod);
-    }else{
-        res.status(404).send({message: "Product not found"});
-    }
-
-})
+//Rutas 
+app.use("/api/products",productsRouter);
+app.use("/api/carts",cartsRouter);
 
 
 
