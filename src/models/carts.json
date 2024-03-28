@@ -8,7 +8,7 @@
     "products": [
       {
         "product": 8,
-        "quantity": 8
+        "quantity": 9
       }
     ]
   },
@@ -36,5 +36,14 @@
   {
     "id": 7,
     "products": []
+  },
+  {
+    "id": 8,
+    "products": [
+      {
+        "product": 8,
+        "quantity": 1
+      }
+    ]
   }
 ]

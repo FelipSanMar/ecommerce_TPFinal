@@ -9,38 +9,51 @@ const cartManager = new CartManager("./src/models/carts.json");
 
 //Agregar nuevo carrito
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
 
-    const newCart = cartManager.addCart();
-    if (newCart) {
+    try {
+
+        const newCart = await cartManager.addCart();
         res.json(newCart);
-    } else res.status(500).json({ error: "Server Error" });
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 })
 
 //Listar productos pertenecientes al carrito 
 
-router.get("/:cid", (req, res) => {
+router.get("/:cid", async (req, res) => {
 
     const cid = parseInt(req.params.cid);
 
-    const cart = cartManager.getProductsByIdCart(cid);
-    if (cart) {
-        res.json(cart.products);
-    } else res.status(404).json({ error: "Cart not found " });
+    try {
 
+        const cart = await cartManager.getProductsByIdCart(cid);
+        res.json(cart.products);
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 
 })
 
-router.post("/:cid/product/:pid", (req, res) => {
+router.post("/:cid/product/:pid", async (req, res) => {
 
     const quantity = req.body.quantity || 1; //Si no hay quantity agregame un uno 
 
+    try {
 
-    const carro = cartManager.addProductsByCart(parseInt(req.params.cid), parseInt(req.params.pid), parseInt(quantity));
+        const carro = await cartManager.addProductsByCart(parseInt(req.params.cid), parseInt(req.params.pid), parseInt(quantity));
 
-    if (carro) {
         res.json(carro);
-    } else res.status(404).json({ error: "Cart not found " });
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 })
 
-module.exports = router; // Asegúrate de exportar el router en lugar de un objeto directamente
+module.exports = router; 

@@ -45,50 +45,15 @@
     "id": 5
   },
   {
-    "title": "producto6",
-    "description": "Este es un producto prueba6",
-    "price": 60,
-    "thumbnail": "Imagen 6",
-    "code": "d",
-    "stock": 29,
+    "title": "hp",
+    "description": "pc",
+    "price": "10000",
+    "img": "Sin Imagen",
+    "code": "sdjvn",
+    "stock": "20",
+    "category": "Electrónica ",
+    "status": true,
+    "thumbnail": [],
     "id": 6
-  },
-  {
-    "title": "producto7",
-    "description": "Este es un producto prueba7",
-    "price": 70,
-    "thumbnail": "Imagen 7",
-    "code": "e",
-    "stock": 30,
-    "id": 7
-  },
-  {
-    "title": "producto8",
-    "description": "Este es un producto prueba8",
-    "price": 80,
-    "thumbnail": "Imagen 8",
-    "code": "f",
-    "stock": 31,
-    "id": 8
-  },
-  {
-    "title": "producto9",
-    "description": "Este es un producto prueba9",
-    "price": 90,
-    "thumbnail": "Imagen 9",
-    "code": "g",
-    "stock": 32,
-    "id": 9
-  },
-  {
-    "title": "HP",
-    "description": "PC escritorio",
-    "price": 10000,
-    "thumbnail": "Imagen 80",
-    "code": "abc123",
-    "stock": 11,
-    "id": 10,
-    "category": "Computers",
-    "status": true
   }
 ]
