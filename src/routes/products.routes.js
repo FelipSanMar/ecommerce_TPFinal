@@ -38,10 +38,11 @@ router.get("/", async (req, res) => {
 //Devuelve el producto con ID
 
 router.get("/:pid", async (req, res) => {
+
+    const id = req.params.pid;
+
     try {
 
-
-        let id = parseInt(req.params.pid);
         const prod = await productManager.getProductByid(id);
 
         if (prod) {
@@ -79,6 +80,7 @@ router.put("/:pid", async (req, res) => {
     const productUpdate = req.body;
     try {
         productManager.updateProduct(id, productUpdate);
+        res.status(200).send({ message: "Successfully product update" });
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -91,12 +93,12 @@ router.delete("/:pid", async (req, res) => {
 
     const id = req.params.pid;
 
-    try{    
+    try {
 
         await productManager.deleteProduct(id);
         res.status(200).send({ message: "Product Deleted" });
 
-    }catch(error){
+    } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
 
@@ -104,3 +106,4 @@ router.delete("/:pid", async (req, res) => {
 
 
 module.exports = router;
+

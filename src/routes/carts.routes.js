@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 
 router.get("/:cid", async (req, res) => {
 
-    const cid = parseInt(req.params.cid);
+    const cid = req.params.cid;
 
     try {
 
@@ -46,7 +46,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
 
     try {
 
-        const carro = await cartManager.addProductsByCart(parseInt(req.params.cid), parseInt(req.params.pid), parseInt(quantity));
+        const carro = await cartManager.addProductsByCart(req.params.cid, req.params.pid, quantity);
 
         res.json(carro);
 
@@ -56,4 +56,5 @@ router.post("/:cid/product/:pid", async (req, res) => {
     }
 })
 
-module.exports = router; 
+module.exports = router;
+

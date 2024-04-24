@@ -8,6 +8,10 @@ const express = require("express");
 const app = express();
 const PORT = 8080;
 
+//Conexion con base de datos
+require("./database.js");
+
+
 //Vinculacion de rutas tipo common JS 
 const productsRouter = require("./routes/products.routes.js");
 const cartsRouter = require("./routes/carts.routes.js");
@@ -19,7 +23,7 @@ const socket = require("socket.io");
 
 //MIDDLEWARE  
 app.use(express.json()); //Notacion JSON
-app.use(express.urlencoded({extended:true})); //Para recibir por query datos complejos
+app.use(express.urlencoded({ extended: true })); //Para recibir por query datos complejos
 app.use(express.static("./src/public"));
 
 //CONFIGURACION HANDLEBARS
@@ -29,8 +33,8 @@ app.set("views", "./src/views");
 
 
 //Rutas 
-app.use("/api/products",productsRouter);
-app.use("/api/carts",cartsRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 
 
