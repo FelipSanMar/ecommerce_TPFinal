@@ -43,28 +43,24 @@ const httpServer = app.listen(PORT, () => {
     console.log(`Escuchando en el http://localhost:${PORT}`);
 })
 
-const io = socket(httpServer);
+const io = new socket.Server(httpServer);
 
 //Obtener el array de productos
-const ProductManager = require("./controllers/ProductManager.js");
-const productManager = new ProductManager("./src/models/products.json");
+const MessageModel = require("./models/message.model.js");
+
 
 io.on("connection", async (socket) => {
     console.log("Cliente conectado");
 
-    //Enviamos array de productos para al cliente
-    socket.emit("productos", await productManager.getProducts());
+    socket.on("message", async data => {
 
-    //Recibimos el evento "eliminarProducto" desde el cliente
-    socket.on("eliminarProducto", async (id) => {
-        await productManager.deleteProduct(id);
-        //Se envia el array de productos actualizados
-        socket.emit("productos", await productManager.getProducts());
-    })
+        //Guardo el mensaje en MongoDB: 
+        await MessageModel.create(data);
 
-    //Recibe el evento "agregarProducto" desde el cliente 
-    socket.on("agregarProducto", async (producto) => {
-        await productManager.addProduct(producto);
-        socket.emit("productos", await productManager.getProducts());
+        //Obtengo los mensajes de MongoDB y se los paso al cliente: 
+        const messages = await MessageModel.find();
+        console.log(messages);
+        io.sockets.emit("message", messages);
+
     })
 })
