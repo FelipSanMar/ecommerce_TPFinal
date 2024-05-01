@@ -14,12 +14,9 @@ const ProductModel = require("../models/products.model.js");
 //Devuelve todos los productos o la cantidad que se indiquen 
 
 router.get("/", async (req, res) => {
-
     try {
-        //Lee el archivo de productos y los devuelve como obtejo 
-       // const prods = await productManager.getProducts();
-         
-        const limit = parseInt(req.query.limit || 10); //Verificar si se proporciono un limite. Si no es diez 
+  
+        const limit = parseInt(req.query.limit || 10); 
         const page = parseInt(req.query.page) || 1;
         const sort = req.query.sort === 'desc' ? -1 : req.query.sort === 'asc' ? 1 : null;
         const query = req.query.query || null;
@@ -36,33 +33,35 @@ router.get("/", async (req, res) => {
 
         const products = await ProductModel.paginate(queryObj, options);
 
-      //  console.log(products);
+    
 
         const productsFinish = products.docs.map(prod => {
             const {_id, ...rest} = prod.toObject();
             return rest;
         })
 
-    //    res.send(products);
 
-     res.render("products", {
-        products: productsFinish,
-        hasPrevPage: products.hasPrevPage,
-        hasNextPage: products.hasNextPage,
-        prevPage: products.prevPage,
-        nextPage: products.nextPage,
-        currentPage: products.page,
-        totalPages: products.totalPages
-     })
-
-
+        res.json({
+            status: 'success',
+            payload: productsFinish,
+            totalPages: products.totalPages,
+            prevPage: products.prevPage,
+            nextPage: products.nextPage,
+            page: products.page,
+            hasPrevPage: products.hasPrevPage,
+            hasNextPage: products.hasNextPage,
+            prevLink: products.hasPrevPage ? `/api/products?limit=${limit}&page=${products.prevPage}&sort=${sort}&query=${query}` : null,
+            nextLink: products.hasNextPage ? `/api/products?limit=${limit}&page=${products.nextPage}&sort=${sort}&query=${query}` : null,
+        });
 
     } catch (error) {
         console.error("Error al obtener productos", error);
         res.status(500).json({
+            status: 'error',
             error: "Error interno del servidor"
         });
     }
+
 });
 
 //Devuelve el producto con ID

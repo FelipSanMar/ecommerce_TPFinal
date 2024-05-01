@@ -28,7 +28,6 @@ class CartManager {
 
             const cart = await CartModel.findById(cartId);
 
-            //     const cart = CartModel.findOne({_id: cartId}).lean().populate("products._id");
 
             if (cart) {
 
