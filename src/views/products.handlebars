@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listado de Productos</title>
+<link rel="stylesheet" href="../public/css/style_v2.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+    <h1>LISTADO DE PRODUCTOS</h1>
+
+    <div class="container">
+        {{#each products}}
+            <div class="producto">
+                <img src="{{this.img}}" alt="{{this.title}}">
+                <div class="info">
+                    <div class="titulo">{{this.title}}</div>
+                    <div class="descripcion">{{this.description}}</div>
+                    <div class="precio">${{this.price}}</div>
+                    <div class="codigo">Código: {{this.code}}</div>
+                    <div class="stock">Stock: {{this.stock}}</div>
+                    <div class="categoria">Categoría: {{this.category}}</div>
+                    <div class="estado">Estado: {{this.status}}</div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="paginacion">
+        {{#if hasPrevPage}}
+            <a href="/products?page={{prevPage}}">Anterior</a>
+        {{/if}}
+
+        <span>Página {{currentPage}} de {{totalPages}}</span>
+
+        {{#if hasNextPage}}
+            <a href="/products?page={{nextPage}}">Siguiente</a>
+        {{/if}}
+    </div>
+</body>
+</html>
+

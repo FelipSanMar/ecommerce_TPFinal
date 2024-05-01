@@ -6,7 +6,7 @@ const cartSchema = new mongoose.Schema({
         {
             product: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Product",
+                ref: "products",
                 required: true
             },
             quantity: {
@@ -15,7 +15,14 @@ const cartSchema = new mongoose.Schema({
             }
         }
     ]
-})
+});
+
+// Middleware para population 
+cartSchema.pre('findOne', function() {
+ 
+    this.populate('products.product','_id title price');
+   
+  });
 
 const CartModel = mongoose.model("carts", cartSchema);
 
