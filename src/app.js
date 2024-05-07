@@ -16,15 +16,25 @@ require("./database.js");
 const productsRouter = require("./routes/products.routes.js");
 const cartsRouter = require("./routes/carts.routes.js");
 const viewsRouter = require("./routes/views.router.js");
+const userRouter = require("./routes/user.routes.js")
+const sessionRouter = require("./routes/session.routes.js")
 
 const exphbs = require("express-handlebars");
 const socket = require("socket.io");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 
 //MIDDLEWARE  
 app.use(express.json()); //Notacion JSON
 app.use(express.urlencoded({ extended: true })); //Para recibir por query datos complejos
 app.use(express.static("./src/public"));
+app.use(session({
+    secret: "secretCoder",
+    resave: true,
+    saveUninitialized: true,
+
+}))
 
 //CONFIGURACION HANDLEBARS
 app.engine("handlebars", exphbs.engine());
@@ -33,9 +43,11 @@ app.set("views", "./src/views");
 
 
 //Rutas 
+app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
-app.use("/", viewsRouter);
+app.use("/api/users", userRouter);
+app.use("/api/sessions", sessionRouter);
 
 
 
