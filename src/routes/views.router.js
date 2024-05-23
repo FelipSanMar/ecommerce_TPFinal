@@ -10,12 +10,15 @@ const cartManager = new CartManager();
 
 const ProductModel = require("../models/products.model.js");
 
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
+
 
 router.get("/", (req, res) => {
     res.render("chat");
 });
 
-router.get("/products", async (req, res) => {
+router.get("/products",passport.authenticate("jwt", { session: false }) ,async (req, res) => {
 
     try {
 
@@ -45,7 +48,7 @@ router.get("/products", async (req, res) => {
 
 
         res.render("products", {
-            user: req.session.user,
+            user: req.user,
             products: productsFinish,
             hasPrevPage: products.hasPrevPage,
             hasNextPage: products.hasNextPage,
@@ -111,15 +114,9 @@ router.get("/register", (req, res) => {
     res.render("register");
 });
 
-router.get("/profile", (req, res) => {
 
-    if (!req.session.login) {
-        return res.redirect("/login");
-    }
-
-    // Renderiza la vista de perfil con los datos del usuario
-    res.render("profile", { user: req.session.user });
-
-});
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+    res.render("current", { user: req.user });
+})
 
 module.exports = router; 

@@ -24,8 +24,10 @@ const socket = require("socket.io");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
+//PASSPORT
 const passport = require("passport");
 const initializePassport = require("./config/passport.config.js");
+const cookieParser = require("cookie-parser");
 
 //MIDDLEWARE  
 app.use(express.json()); //Notacion JSON
@@ -39,15 +41,15 @@ app.use(session({
 }))
 
 
-
 //CONFIGURACION HANDLEBARS
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
 //PASSPORT
+app.use(cookieParser());
 app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.session());
 initializePassport();
 
 //Rutas 
