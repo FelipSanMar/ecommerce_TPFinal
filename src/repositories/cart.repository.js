@@ -2,7 +2,7 @@
 const CartModel = require("../models/carts.model.js");
 
 
-class CartManager {
+class CartRepository {
 
 
 
@@ -213,7 +213,7 @@ class CartManager {
 
 }
 
-//const carros = new CartManager();
 
 
-module.exports = CartManager;
+
+module.exports = CartRepository;

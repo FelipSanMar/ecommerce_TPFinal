@@ -8,6 +8,10 @@ const express = require("express");
 const app = express();
 const PORT = 8080;
 
+//VARIABLES DE ENTORNO
+const configObject = require("./config/config");
+const { mongo_url, port } = configObject;
+
 //Conexion con base de datos
 require("./database.js");
 
@@ -17,7 +21,7 @@ const productsRouter = require("./routes/products.routes.js");
 const cartsRouter = require("./routes/carts.routes.js");
 const viewsRouter = require("./routes/views.router.js");
 const userRouter = require("./routes/user.routes.js")
-const sessionRouter = require("./routes/session.routes.js")
+
 
 const exphbs = require("express-handlebars");
 const socket = require("socket.io");
@@ -28,6 +32,8 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const initializePassport = require("./config/passport.config.js");
 const cookieParser = require("cookie-parser");
+
+
 
 //MIDDLEWARE  
 app.use(express.json()); //Notacion JSON
@@ -57,7 +63,7 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/users", userRouter);
-app.use("/api/sessions", sessionRouter);
+//app.use("/api/sessions", sessionRouter);
 
 
 
