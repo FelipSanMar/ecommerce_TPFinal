@@ -33,6 +33,8 @@ const passport = require("passport");
 const initializePassport = require("./config/passport.config.js");
 const cookieParser = require("cookie-parser");
 
+const cors = require("cors");
+const path = require('path');
 
 
 //MIDDLEWARE  
@@ -40,11 +42,17 @@ app.use(express.json()); //Notacion JSON
 app.use(express.urlencoded({ extended: true })); //Para recibir por query datos complejos
 app.use(express.static("./src/public"));
 app.use(session({
-    secret: "secretCoder",
+    secret: "coderhouse", //"secretCoder" 
     resave: true,
     saveUninitialized: true,
 
 }))
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+
+//AuthMiddleware
+const authMiddleware = require("./middleware/authmiddleware.js");
+app.use(authMiddleware);
 
 
 //CONFIGURACION HANDLEBARS
@@ -71,12 +79,18 @@ const httpServer = app.listen(PORT, () => {
     console.log(`Escuchando en el http://localhost:${PORT}`);
 })
 
-const io = new socket.Server(httpServer);
 
 //Obtener el array de productos
 const MessageModel = require("./models/message.model.js");
 
+///Websockets: 
+const SocketManager = require("./sockets/socketManager.js");
+new SocketManager(httpServer);
 
+
+//const io = new socket.Server(httpServer);
+
+/*
 io.on("connection", async (socket) => {
     console.log("Cliente conectado");
 
@@ -91,4 +105,4 @@ io.on("connection", async (socket) => {
         io.sockets.emit("message", messages);
 
     })
-})
+})*/

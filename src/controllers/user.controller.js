@@ -41,8 +41,8 @@ class UserController {
             await newUser.save();
 
             //Genera el token: 
-            const token = jwt.sign({ first_name: newUser.first_name, last_name: newUser.last_name, email: newUser.email, age: newUser.age, role: newUser.role }, "coderhouse", { expiresIn: "1h" });
-
+            const token = jwt.sign({ user: newUser }, "coderhouse", { expiresIn: "1h" });
+          
             //Establecer el token como Cookie: 
             res.cookie("coderCookieToken", token, {
                 maxAge: 3600000, //1 hora de vida
@@ -73,8 +73,8 @@ class UserController {
                 if (isValidPassword(password, userLogin)) {
 
                     //Genera el token: 
-                    const token = jwt.sign({ first_name: userLogin.first_name, last_name: userLogin.last_name, email: userLogin.email, age: userLogin.age, role: userLogin.role }, "coderhouse", { expiresIn: "1h" });
-
+                    const token = jwt.sign({ user: userLogin }, "coderhouse", { expiresIn: "1h" });
+                    
                     //Establecer el token como Cookie: 
                     res.cookie("coderCookieToken", token, {
                         maxAge: 3600000, //1 hora de vida

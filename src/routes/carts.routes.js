@@ -28,5 +28,8 @@ router.put("/:cid/products/:pid", cartController.updateCartProductsQuantity);
 //Elimina todos los productos del carro
 router.delete("/:cid", cartController.deleteAllProductsFromCart);
 
+//Finaliza la compra y realiza el ticket
+router.post("/:cid/purchase", cartController.checkOut);
+
 module.exports = router;
 

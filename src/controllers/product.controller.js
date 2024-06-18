@@ -1,6 +1,6 @@
 
 //const ProductRepository = require("../repositories/product.repository.js");
-const productService = require("../services/index.js");
+const {productService} = require("../services/index.js");
 
 //const productRepository = new ProductRepository();
 

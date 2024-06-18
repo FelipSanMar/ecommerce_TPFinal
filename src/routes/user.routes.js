@@ -15,6 +15,7 @@ router.post("/", userController.register);
 router.post("/login", userController.login);
 router.get("/logout", userController.logout);
 
+
 //GITHUB
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }), userController.github);
 router.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login"}), userController.githubCallback);

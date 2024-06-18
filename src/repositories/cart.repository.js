@@ -48,8 +48,12 @@ class CartRepository {
     async addProductsByCart(cartId, productId, quantity = 1) {
 
         try {
+
             const cart = await this.getProductsByIdCart(cartId);
 
+            if (!cart) {
+                throw new Error('Cart not found');
+            }
             const existProduct = cart.products.find(item => item.product.toString() === productId);
             if (cart) {
                 if (existProduct) {
@@ -67,7 +71,7 @@ class CartRepository {
 
             }
         } catch (error) {
-            console.log("Error", error);
+            console.log('Error en addProductsByCart:', error);
             throw error;
         }
 
@@ -199,8 +203,8 @@ class CartRepository {
     async getProductsPopulation(cartId) {
         try {
 
-            const cart = await CartModel.findOne({_id:cartId});
-          //  console.log(JSON.stringify(cart,null,'\t'));
+            const cart = await CartModel.findOne({ _id: cartId });
+            //  console.log(JSON.stringify(cart,null,'\t'));
             return cart;
 
         } catch (error) {
