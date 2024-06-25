@@ -1,5 +1,7 @@
 //app.js
 
+//Solucionar problemas de permisos npm i: //Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
 //Importar modulos 
 //import express from "express" //En el package.json hay que agregar "type": "module"
 const express = require("express");
@@ -20,7 +22,8 @@ require("./database.js");
 const productsRouter = require("./routes/products.routes.js");
 const cartsRouter = require("./routes/carts.routes.js");
 const viewsRouter = require("./routes/views.router.js");
-const userRouter = require("./routes/user.routes.js")
+const userRouter = require("./routes/user.routes.js");
+const mockingRouter = require("./routes/mocking.routes.js");
 
 
 const exphbs = require("express-handlebars");
@@ -36,6 +39,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require('path');
 
+const errorHandler = require("./middleware/error.js");
 
 //MIDDLEWARE  
 app.use(express.json()); //Notacion JSON
@@ -71,8 +75,9 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/users", userRouter);
-//app.use("/api/sessions", sessionRouter);
-
+//Generar cien productos
+app.use("/mockingproducts",mockingRouter);
+app.use(errorHandler);
 
 
 const httpServer = app.listen(PORT, () => {

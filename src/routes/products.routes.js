@@ -17,5 +17,6 @@ router.put("/:pid", productController.updateProduct);
 router.delete("/:pid", productController.deleteProduct);
 
 
+
 module.exports = router;
 

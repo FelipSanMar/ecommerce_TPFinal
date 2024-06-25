@@ -127,7 +127,7 @@ class ViewsController {
         res.render("chat");
     }
     
-    
+
 
 }
 

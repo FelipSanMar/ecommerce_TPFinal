@@ -25,6 +25,7 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 router.get("/realtimeproducts", checkUserRole(['admin']), viewsController.renderRealTimeProducts);
 router.get("/chat", checkUserRole(['usuario']) ,viewsController.renderChat);
 
+
 module.exports = router; 
 
 

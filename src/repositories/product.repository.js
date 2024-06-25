@@ -1,7 +1,11 @@
 //ProductManager.js
 
 
-const ProductModel = require("../models/products.model.js")
+const ProductModel = require("../models/products.model.js");
+
+const CustomError = require("../services/errors/custom-error.js");
+const { generarInfoError } = require("../services/errors/info.js");
+const { EErrors } = require("../services/errors/enums.js");
 
 class ProductRepository {
 
@@ -10,12 +14,16 @@ class ProductRepository {
 
         try {
 
+            if (!title || !description || !price || !code || !category) {
 
-            if (!title || !description || !price || !code || !stock || !category) {
-
-                console.log("Debe ingresar todos los campos requeridos");
-                return;
+                throw CustomError.crearError({
+                    nombre: "Producto nuevo",
+                    causa: generarInfoError({title, description, price, code, category}),
+                    mensaje: "Error al intentar crear producto",
+                    codigo: EErrors.TIPO_INVALIDO
+                });
             }
+
 
             const productExist = await ProductModel.findOne({ code: code });
 
@@ -46,7 +54,6 @@ class ProductRepository {
             throw error;
         }
     }
-
 
 
     async getProducts() {
