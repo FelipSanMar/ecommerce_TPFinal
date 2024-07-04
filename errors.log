@@ -1,0 +1,14 @@
+info: Fetched products successfully
+warning: Code Repeat
+info: Fetched products successfully
+warning: Code Repeat
+info: Fetched products successfully
+warning: Code Repeat
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+fatal:   Mensaje FATAL   - PRIO:0
+error:   Mensaje ERROR   - PRIO:1
+warning: Mensaje WARNING - PRIO:2
+info:    Mensaje INFO    - PRIO:3

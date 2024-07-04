@@ -1,37 +1,30 @@
-//app.js
+// app.js
 
-//Solucionar problemas de permisos npm i: //Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-//Importar modulos 
-//import express from "express" //En el package.json hay que agregar "type": "module"
 const express = require("express");
-
-//Creación de una app de express
 const app = express();
 const PORT = 8080;
 
-//VARIABLES DE ENTORNO
+// VARIABLES DE ENTORNO
 const configObject = require("./config/config");
 const { mongo_url, port } = configObject;
 
-//Conexion con base de datos
+// Conexion con base de datos
 require("./database.js");
 
-
-//Vinculacion de rutas tipo common JS 
+// Vinculacion de rutas tipo common JS 
 const productsRouter = require("./routes/products.routes.js");
 const cartsRouter = require("./routes/carts.routes.js");
 const viewsRouter = require("./routes/views.router.js");
 const userRouter = require("./routes/user.routes.js");
 const mockingRouter = require("./routes/mocking.routes.js");
-
+const loggerRouter = require("./routes/logger.routes.js");
 
 const exphbs = require("express-handlebars");
 const socket = require("socket.io");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-//PASSPORT
+// PASSPORT
 const passport = require("passport");
 const initializePassport = require("./config/passport.config.js");
 const cookieParser = require("cookie-parser");
@@ -41,73 +34,51 @@ const path = require('path');
 
 const errorHandler = require("./middleware/error.js");
 
-//MIDDLEWARE  
-app.use(express.json()); //Notacion JSON
-app.use(express.urlencoded({ extended: true })); //Para recibir por query datos complejos
+// MIDDLEWARE  
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./src/public"));
 app.use(session({
-    secret: "coderhouse", //"secretCoder" 
+    secret: "coderhouse",
     resave: true,
     saveUninitialized: true,
-
-}))
-//app.use(express.static(path.join(__dirname, 'public')));
+}));
 app.use(cors());
 
-//AuthMiddleware
+// AuthMiddleware
 const authMiddleware = require("./middleware/authmiddleware.js");
 app.use(authMiddleware);
 
+// Importar y usar el middleware addLogger
+const addLogger = require("./middleware/logger.js");
+app.use(addLogger);
 
-//CONFIGURACION HANDLEBARS
+// CONFIGURACION HANDLEBARS
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
-//PASSPORT
+// PASSPORT
 app.use(cookieParser());
 app.use(passport.initialize());
-//app.use(passport.session());
 initializePassport();
 
-//Rutas 
+// Rutas 
 app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/users", userRouter);
-//Generar cien productos
-app.use("/mockingproducts",mockingRouter);
+app.use("/mockingproducts", mockingRouter);
+app.use("/loggertest", loggerRouter);
 app.use(errorHandler);
-
 
 const httpServer = app.listen(PORT, () => {
     console.log(`Escuchando en el http://localhost:${PORT}`);
-})
+});
 
-
-//Obtener el array de productos
+// Obtener el array de productos
 const MessageModel = require("./models/message.model.js");
 
-///Websockets: 
+// Websockets: 
 const SocketManager = require("./sockets/socketManager.js");
 new SocketManager(httpServer);
-
-
-//const io = new socket.Server(httpServer);
-
-/*
-io.on("connection", async (socket) => {
-    console.log("Cliente conectado");
-
-    socket.on("message", async data => {
-
-        //Guardo el mensaje en MongoDB: 
-        await MessageModel.create(data);
-
-        //Obtengo los mensajes de MongoDB y se los paso al cliente: 
-        const messages = await MessageModel.find();
-        console.log(messages);
-        io.sockets.emit("message", messages);
-
-    })
-})*/

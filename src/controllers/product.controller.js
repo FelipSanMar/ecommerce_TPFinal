@@ -56,10 +56,6 @@ class ProductController {
         } catch (error) {
             console.error("Error al obtener productos", error);
             next(error);
-            // res.status(500).json({
-            //     status: 'error',
-            //     error: "Error interno del servidor"
-            // });
         }
     }
 
@@ -90,6 +86,7 @@ class ProductController {
         try {
 
             await productService.addProduct(newProduct);
+           
             res.status(200).send({ message: "Successfully added product" });
 
         } catch (error) {
