@@ -31,13 +31,18 @@ const userSchema = new mongoose.Schema({
 
     age: {
         type: Number,
-    //    required: true
+        required: true
     },
 
     role: {
         type: String,
-        enum: ['admin', 'usuario'],
+        enum: ['admin', 'usuario', 'premium'],
         default: 'usuario'
+    },
+
+    resetToken: {
+        token: String, 
+        expire: Date
     }
 })
 

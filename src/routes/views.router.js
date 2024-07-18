@@ -11,7 +11,7 @@ const checkUserRole = require("../middleware/checkrole.js");
 
 
 //router.get("/products", checkUserRole(['usuario']),passport.authenticate('jwt', { session: false }), viewsController.renderProducts);
-router.get("/products", passport.authenticate('jwt', { session: false }), checkUserRole(['usuario']), viewsController.renderProducts);
+router.get("/products", passport.authenticate('jwt', { session: false }), checkUserRole(['usuario', 'premium']), viewsController.renderProducts);
 
 router.get("/carts/:cid", viewsController.renderCart);
 router.get("/login", viewsController.renderLogin);
@@ -22,9 +22,12 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 }, viewsController.renderCurrent);
 
 
-router.get("/realtimeproducts", checkUserRole(['admin']), viewsController.renderRealTimeProducts);
-router.get("/chat", checkUserRole(['usuario']) ,viewsController.renderChat);
+router.get("/realtimeproducts", checkUserRole(['admin', 'premium']), viewsController.renderRealTimeProducts);
+router.get("/chat", checkUserRole(['usuario', 'premium']) ,viewsController.renderChat);
 
+router.get("/passreset", viewsController.renderResetPassword);
+router.get("/password", viewsController.renderCambioPassword);
+router.get("/acksendemail", viewsController.renderConfirmacion);
 
 module.exports = router; 
 

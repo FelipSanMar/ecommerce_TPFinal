@@ -6,7 +6,7 @@ const CustomError = require("../services/errors/custom-error.js");
 const { generarInfoError } = require("../services/errors/info.js");
 const { EErrors } = require("../services/errors/enums.js");
 
-//const productRepository = new ProductRepository();
+
 
 class ProductController {
 

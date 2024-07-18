@@ -7,7 +7,7 @@ const { EErrors } = require("../services/errors/enums.js");
 const { logger } = require("../utils/logger.utils.js");
 
 class ProductRepository {
-    async addProduct({ title, description, price, img, code, stock, category, thumbnails }) {
+    async addProduct({ title, description, price, img, code, stock, category, thumbnails, owner }) {
         try {
             if (!title || !description || !price || !code || !category) {
                 throw CustomError.crearError({
@@ -23,7 +23,8 @@ class ProductRepository {
                 logger.warning("Code Repeat");
                 return;
             }
-
+            console.log("Owner:", owner);
+            
             const productData = new ProductModel({
                 title,
                 description,
@@ -33,7 +34,8 @@ class ProductRepository {
                 stock,
                 category,
                 status: true,
-                thumbnails: thumbnails || []
+                thumbnails: thumbnails || [],
+                owner
             });
 
             await productData.save();

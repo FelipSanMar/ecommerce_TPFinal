@@ -12,3 +12,88 @@ fatal:   Mensaje FATAL   - PRIO:0
 error:   Mensaje ERROR   - PRIO:1
 warning: Mensaje WARNING - PRIO:2
 info:    Mensaje INFO    - PRIO:3
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+error: ERROR: Product add Error al intentar crear producto {"causa":" Los datos estan incompletos o no son válidos. \n    Necesitamos recibir los siguientes datos: \n    - TITLE:       String  | Ingreso: Banana Pi M2 Zero\n    - PRICE:       String  | Ingreso: 30\n    - CATEGORY:    String  | Ingreso: Electrónica\n    - CODE:        String  | Ingreso: P020\n    - DESCRIPTION: String  | Ingreso: undefined\n    ","code":2,"name":"Producto nuevo","stack":"Producto nuevo: Error al intentar crear producto\n    at CustomError.crearError (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\src\\services\\errors\\custom-error.js:5:23)\n    at ProductRepository.addProduct (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\src\\repositories\\product.repository.js:13:35)\n    at getProductByid (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\src\\controllers\\product.controller.js:88:34)\n    at Layer.handle [as handle_request] (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at Route.dispatch (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\route.js:119:3)\n    at Layer.handle [as handle_request] (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\index.js:280:10)"}
+error: ERROR: Product add Error al intentar crear producto {"causa":" Los datos estan incompletos o no son válidos. \n    Necesitamos recibir los siguientes datos: \n    - TITLE:       String  | Ingreso: Banana Pi M2 Zero\n    - PRICE:       String  | Ingreso: 30\n    - CATEGORY:    String  | Ingreso: Electrónica\n    - CODE:        String  | Ingreso: P020\n    - DESCRIPTION: String  | Ingreso: undefined\n    ","code":2,"name":"Producto nuevo","stack":"Producto nuevo: Error al intentar crear producto\n    at CustomError.crearError (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\src\\services\\errors\\custom-error.js:5:23)\n    at ProductRepository.addProduct (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\src\\repositories\\product.repository.js:13:35)\n    at getProductByid (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\src\\controllers\\product.controller.js:88:34)\n    at Layer.handle [as handle_request] (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at Route.dispatch (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\route.js:119:3)\n    at Layer.handle [as handle_request] (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Felip\\Desktop\\15_Tercera-Integradora\\node_modules\\express\\lib\\router\\index.js:280:10)"}
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+warning: Code Repeat
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully

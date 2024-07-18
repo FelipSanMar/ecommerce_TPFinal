@@ -3,7 +3,10 @@ const CartModel = require("../models/carts.model.js");
 const { createHash, isValidPassword } = require("../utils/hashbcrypt.js");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const { generarResetToken } = require("../utils/tokenreset.js");
 
+const EmailManager = require("../services/email.js");
+const emailManager = new EmailManager();
 
 class UserController {
 
@@ -113,6 +116,104 @@ class UserController {
     req.login = true;
     res.redirect("/current");
     }
+
+
+
+    async requestPasswordReset(req, res) {
+        const { email } = req.body;
+        try {
+            //Buscar al usuario por email
+            const user = await UserModel.findOne({ email });
+
+            if (!user) { 
+                return res.status(404).send("User not found");
+            }
+
+            //Si hay usuario, genera token: 
+
+            const token = generarResetToken();
+
+            //Agregar token al user: 
+            user.resetToken = {
+                token: token,
+                expire: new Date(Date.now() + 3600000) // 1 Hora de duración. 
+            }
+
+            await user.save();
+
+            //Envio de mail 
+            await emailManager.enviarCorreoRestablecimiento(email, user.first_name, token);
+
+            res.redirect("/acksendemail");
+        } catch (error) {
+            res.status(500).send("Error interno del servidor");
+        }
+    }
+
+    async resetPassword(req, res) {
+        const { email, password, token } = req.body;
+
+        try {
+            const user = await UserModel.findOne({ email });
+            if (!user) {
+                return res.render("passchange", { error: "User not found" });
+            }
+
+            //Se obtiene el token y verifica: 
+            const resetToken = user.resetToken;
+            if (!resetToken || resetToken.token !== token) {
+                return res.render("passreset", { error: "Invalid token" });
+            }
+
+            //Verifica si el token expiro: 
+            const ahora = new Date();
+            if (ahora > resetToken.expire) {
+                return res.render("passreset", { error: "Invalid token" });
+            }
+
+            //Verifica que la contraseña nueva no sea igual a la anterior: 
+            if (isValidPassword(password, user)) {
+                return res.render("passchange", { error: "The new password cannot be the same as the old one" });
+            }
+
+            //Actualizar contraseña: 
+            user.password = createHash(password);
+
+            //Se marca como usado el token: 
+            user.resetToken = undefined;
+            await user.save();
+
+            return res.redirect("/login");
+
+        } catch (error) {
+            res.status(500).render("passreset", { error: "Server error" });
+        }
+    }
+
+    //Cambiar el rol del usuario: 
+
+    async cambiarRolPremium(req, res) {
+        const {uid} = req.params; 
+        try {
+            const user = await UserModel.findById(uid); 
+
+            if(!user) {
+                return res.status(404).send("User not found"); 
+            }
+
+            //Si el usuario existe, se cambia el rol
+
+            const nuevoRol = user.role === "usuario" ? "premium" : "usuario"; 
+
+            const actualizado = await UserModel.findByIdAndUpdate(uid, {role: nuevoRol});
+            res.json(actualizado); 
+        } catch (error) {
+            res.status(500).send("Server error"); 
+        }
+    }
+
+
+
 
 
 }

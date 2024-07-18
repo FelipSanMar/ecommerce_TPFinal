@@ -111,7 +111,8 @@ class ViewsController {
         const userDto = new UserDTO(first_name, last_name, age, email, role);
     
         const isAdmin = role === 'admin';
-        res.render("current", { user: userDto, isAdmin });
+        const isPremium = req.user.role === 'premium';
+        res.render("current", { user: userDto, isAdmin, isPremium });
     }
 
     async renderRealTimeProducts(req, res) {
@@ -125,6 +126,18 @@ class ViewsController {
 
     async renderChat(req, res) {
         res.render("chat");
+    }
+
+    async renderResetPassword(req, res){
+        res.render("passreset"); 
+    }
+
+    async renderCambioPassword(req, res){
+        res.render("passchange"); 
+    }
+
+    async renderConfirmacion(req, res){
+        res.render("acksendemail"); 
     }
     
 

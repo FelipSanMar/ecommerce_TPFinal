@@ -48,7 +48,17 @@ class CartController {
         const quantity = req.body.quantity || 1; //Si no hay quantity agregame un uno 
 
         try {
+            // Buscar el producto para verificar el propietario
+            const producto = await productRepository.obtenerProductoPorId(productId);
 
+            if (!producto) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+
+            // Verificar si el usuario es premium y si es propietario del producto
+            if (req.user.role === 'premium' && producto.owner === req.user.email) {
+                return res.status(403).json({ message: 'No puedes agregar tu propio producto al carrito.' });
+            }
             const carro = await cartService.addProductsByCart(req.params.cid, req.params.pid, quantity);
 
             res.json(carro);

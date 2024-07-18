@@ -1,7 +1,19 @@
 <h1>Mi Perfil</h1>
-<p>Bienvenido/a: {{user.firstName}} {{user.lastName}}!</p>
-<p>Email: {{user.email}}</p>
-<p>Edad: {{user.age}}</p>
-<p>Role: {{user.role}}</p>
-<a href="/products">Products</a>
-<a href="/api/users/logout">Logout</a>
+
+<div class="profile-card">
+	<p>Bienvenido, {{user.firstName}} {{user.lastName}}!</p>
+	<p>Rol: {{user.role}}</p>
+
+	<a href="/api/users/logout">Logout |</a>
+
+	{{#if this.isAdmin}}
+	<a class="btnMios" href="/realtimeproducts">Modificar Productos</a>
+	{{else}}
+	{{#if this.isPremium}}
+	<a class="btnMios" href="/realtimeproducts">Panel Premium</a>
+	{{/if}}
+	<a class="btnMios" href="/chat">Chat en vivo |</a>
+	<a class="btnMios" href="/products">Productos</a>
+	{{/if}}
+</div>
+
