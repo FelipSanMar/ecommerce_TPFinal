@@ -5,6 +5,7 @@ const { productService } = require("../services/index.js");
 const CustomError = require("../services/errors/custom-error.js");
 const { generarInfoError } = require("../services/errors/info.js");
 const { EErrors } = require("../services/errors/enums.js");
+const ProductModel = require("../models/products.model.js");
 
 
 
@@ -18,7 +19,7 @@ class ProductController {
             const sort = req.query.sort === 'desc' ? -1 : req.query.sort === 'asc' ? 1 : null;
             const query = req.query.query || null;
 
-
+            
 
             //Objeto de opciones para la paginacion
             const options = {
@@ -30,9 +31,8 @@ class ProductController {
             //Consulta
             const queryObj = query ? { category: query } : {};
 
-            const products = await productService.paginate(queryObj, options);
-
-
+            // const products = await productService.paginate(queryObj, options);
+            const products = await ProductModel.paginate(queryObj, options);
 
             const productsFinish = products.docs.map(prod => {
                 const { _id, ...rest } = prod.toObject();

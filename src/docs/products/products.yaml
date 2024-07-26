@@ -1,0 +1,217 @@
+info:
+  title: Products API
+  description: API para gestionar productos.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/products
+    description: Servidor local
+
+paths:
+  /api/products/:
+    get:
+      tags:
+        - Productos
+      summary: Devuelve todos los productos o la cantidad que se indiquen
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+          description: Límite de productos a devolver.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Página de productos a devolver.
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Orden de los productos por precio.
+        - in: query
+          name: query
+          schema:
+            type: string
+          description: Categoría de productos a filtrar.
+      responses:
+        '200':
+          description: Lista de productos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        price:
+                          type: number
+                        category:
+                          type: string
+                  totalPages:
+                    type: integer
+                  prevPage:
+                    type: integer
+                  nextPage:
+                    type: integer
+                  page:
+                    type: integer
+                  hasPrevPage:
+                    type: boolean
+                  hasNextPage:
+                    type: boolean
+                  prevLink:
+                    type: string
+                  nextLink:
+                    type: string
+        '500':
+          description: Error interno del servidor.
+
+    post:
+      tags:
+        - Productos
+      summary: Añade un nuevo producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                code:
+                  type: string
+                price:
+                  type: number
+                stock:
+                  type: number
+                category:
+                  type: string  
+      responses:
+        '200':
+          description: Producto añadido exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Error interno del servidor.
+
+  /api/products/{pid}:
+    get:
+      tags:
+        - Productos
+      summary: Devuelve el producto con ID especificado
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: ID del producto
+      responses:
+        '200':
+          description: Producto encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 title:
+                  type: string
+                description:
+                  type: string
+                code:
+                  type: string
+                price:
+                  type: number
+                stock:
+                  type: number
+                category:
+                  type: string
+        '404':
+          description: Producto no encontrado.
+        '500':
+          description: Error interno del servidor.
+
+    put:
+      tags:
+        - Productos
+      summary: Actualiza el producto con ID especificado
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: ID del producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                code:
+                  type: string
+                price:
+                  type: number
+                stock:
+                  type: number
+                category:
+                  type: string
+      responses:
+        '200':
+          description: Producto actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Error interno del servidor.
+
+    delete:
+      tags:
+        - Productos
+      summary: Elimina el producto con ID especificado
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: ID del producto
+      responses:
+        '200':
+          description: Producto eliminado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Error interno del servidor.

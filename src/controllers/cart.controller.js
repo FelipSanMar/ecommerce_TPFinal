@@ -46,19 +46,21 @@ class CartController {
     async addProductsByCart(req, res) {
 
         const quantity = req.body.quantity || 1; //Si no hay quantity agregame un uno 
+        const productId = req.params.pid;
 
         try {
+
             // Buscar el producto para verificar el propietario
-            const producto = await productRepository.obtenerProductoPorId(productId);
+            const producto = await productService.getProductByid(productId);
 
             if (!producto) {
                 return res.status(404).json({ message: 'Product not found' });
             }
 
             // Verificar si el usuario es premium y si es propietario del producto
-            if (req.user.role === 'premium' && producto.owner === req.user.email) {
-                return res.status(403).json({ message: 'No puedes agregar tu propio producto al carrito.' });
-            }
+            // if (req.user.role === 'premium' && producto.owner === req.user.email) {
+            //     return res.status(403).json({ message: 'No puedes agregar tu propio producto al carrito.' });
+            // }
             const carro = await cartService.addProductsByCart(req.params.cid, req.params.pid, quantity);
 
             res.json(carro);
@@ -72,8 +74,8 @@ class CartController {
 
     async deleteProductsByCart(req, res) {
 
-        cartID = req.params.cid;
-        productID = req.params.pid;
+        const cartID = req.params.cid;
+        const productID = req.params.pid;
 
         try {
 
@@ -163,7 +165,7 @@ class CartController {
     }
 
 
- 
+
     async checkOut(req, res) {
         const cartId = req.params.cid;
         try {
@@ -195,9 +197,10 @@ class CartController {
                 code: generateUniqueCode(),
                 purchase_datetime: new Date(),
                 amount: calcularTotal(cart.products),
-                purchaser: userWithCart.email
+                purchaser: userWithCart._id 
             });
             await ticket.save();
+    console.log("TICKET:" + ticket);
 
             // Eliminar del carrito los productos que sí se compraron
             cart.products = cart.products.filter(item => productosNoDisponibles.some(productId => productId.equals(item.product)));

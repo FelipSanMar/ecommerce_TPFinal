@@ -97,3 +97,106 @@ info: Fetched products successfully
 info: Fetched products successfully
 info: Fetched products successfully
 info: Fetched products successfully
+info: Product Found
+info: Product Found
+info: Product add
+info: Product Deleted
+info: Product Updated
+info: Product Updated
+info: Product Found
+info: Cart created successfully
+info: Cart population fetched successfully
+info: Cart found successfully
+error: Error updating cart products carts validation failed: products.0.product: Cast to ObjectId failed for value "silla ergonomica" (type string) at path "product" because of "BSONError" {"_message":"carts validation failed","errors":{"products.0.product":{"kind":"ObjectId","message":"Cast to ObjectId failed for value \"silla ergonomica\" (type string) at path \"product\" because of \"BSONError\"","name":"CastError","path":"product","reason":{},"stringValue":"\"silla ergonomica\"","value":"silla ergonomica","valueType":"string"}},"stack":"ValidationError: carts validation failed: products.0.product: Cast to ObjectId failed for value \"silla ergonomica\" (type string) at path \"product\" because of \"BSONError\"\n    at Document.invalidate (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\document.js:3307:32)\n    at Subdocument.invalidate (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\types\\subdocument.js:229:12)\n    at EmbeddedDocument.$set (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\document.js:1463:12)\n    at EmbeddedDocument.$set (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\document.js:1117:16)\n    at EmbeddedDocument.Document (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\document.js:166:12)\n    at EmbeddedDocument.Subdocument (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\types\\subdocument.js:34:12)\n    at EmbeddedDocument.ArraySubdocument [as constructor] (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\types\\arraySubdocument.js:44:15)\n    at new EmbeddedDocument (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\schema\\documentArray.js:127:17)\n    at SchemaDocumentArray.cast (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\schema\\documentArray.js:492:22)\n    at SchemaType.applySetters (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\node_modules\\mongoose\\lib\\schemaType.js:1236:12)"}
+info: Cart found successfully
+info: Cart products updated successfully
+info: Cart found successfully
+info: Cart products updated successfully
+info: Cart found successfully
+info: Cart products updated successfully
+info: Cart found successfully
+info: Cart products updated successfully
+info: Cart found successfully
+info: All products deleted from cart successfully
+warning: Product Not Found
+warning: Product Not Found
+warning: Product Not Found
+warning: Product Not Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Product Found
+info: Cart found successfully
+info: Product added to cart successfully
+info: Product Found
+info: Product Found
+info: Product Found
+info: Cart found successfully
+info: Product added to cart successfully
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+error: Error deleting product from cart productIndex is not defined {"stack":"ReferenceError: productIndex is not defined\n    at CartRepository.deleteProductsByCart (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\src\\repositories\\cart.repository.js:74:31)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async deleteProductsByCart (C:\\Users\\Felip\\Desktop\\16-Documentacion_API\\src\\controllers\\cart.controller.js:82:26)"}
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+info: Quantity decremented for product in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+warning: Product not found in cart
+info: Cart found successfully
+info: Product removed from cart
+info: Product Found
+info: Cart found successfully
+info: Product added to cart successfully
+info: Cart found successfully
+info: Product quantity updated in cart successfully
+info: Cart found successfully
+info: Product Found
+info: Cart found successfully
+info: Product Found
+info: Cart found successfully
+info: Product Found
+info: Cart found successfully
+info: Product Found
+info: Cart found successfully
+info: Product Found

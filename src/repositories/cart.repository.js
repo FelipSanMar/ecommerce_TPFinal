@@ -63,7 +63,8 @@ class CartRepository {
                 return null;
             }
 
-            const productIndex = cart.products.findIndex(item => item.product.toString() === productId);
+             const productIndex = cart.products.findIndex(item => item.product._id.toString() === productId);
+ 
             if (productIndex === -1) {
                 logger.warning("Product not found in cart");
                 return null;
@@ -112,8 +113,8 @@ class CartRepository {
                 logger.warning("Cart not found");
                 return null;
             }
-
-            const productIndex = cart.products.findIndex(item => item.product.toString() === productId);
+            const productIndex = cart.products.findIndex(item => item.product._id.toString() === productId);
+          
             if (productIndex === -1) {
                 logger.warning("Product not found in cart");
                 return null;

@@ -82,3 +82,25 @@ const MessageModel = require("./models/message.model.js");
 // Websockets: 
 const SocketManager = require("./sockets/socketManager.js");
 new SocketManager(httpServer);
+
+//Modulos Swagger 
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUiExpress = require("swagger-ui-express"); 
+
+//Se  Crea objeto de configuracion: swaggerOptions
+
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.1",
+        info: {
+            title: "Documentacion de la App Ecommerce", 
+            description: "App para la comercializacion de productos"
+        }
+    }, 
+    apis: ["./src/docs/**/*.yaml"]
+}
+
+//4) Conectamos Swagger a nuestro servidor de Express: 
+
+const specs = swaggerJSDoc(swaggerOptions); 
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
