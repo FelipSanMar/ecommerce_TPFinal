@@ -112,6 +112,14 @@ class ViewsController {
     
         const isAdmin = role === 'admin';
         const isPremium = req.user.role === 'premium';
+       // res.render("current", { user: userDto, isAdmin, isPremium });
+
+         // Si el parámetro de consulta "test" está presente, devuelve los datos en formato JSON
+         if (req.query.test === 'true') {
+            return res.status(200).json({ user: userDto, isAdmin, isPremium });
+        }
+
+        // De lo contrario, renderiza la vista normalmente
         res.render("current", { user: userDto, isAdmin, isPremium });
     }
 

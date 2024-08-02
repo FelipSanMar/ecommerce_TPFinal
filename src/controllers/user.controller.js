@@ -45,14 +45,16 @@ class UserController {
 
             //Genera el token: 
             const token = jwt.sign({ user: newUser }, "coderhouse", { expiresIn: "1h" });
-          
+
             //Establecer el token como Cookie: 
             res.cookie("coderCookieToken", token, {
                 maxAge: 3600000, //1 hora de vida
                 httpOnly: true //La cookie solo se puede acceder mediante HTTP
             });
 
-            res.redirect("/current");
+            // Redirigir con código de estado en la URL
+            res.redirect(201, `/current?status=201`);
+            //res.redirect("/current" );
 
         } catch (error) {
             res.status(500).send("Error interno del servidor");
@@ -77,7 +79,7 @@ class UserController {
 
                     //Genera el token: 
                     const token = jwt.sign({ user: userLogin }, "coderhouse", { expiresIn: "1h" });
-                    
+
                     //Establecer el token como Cookie: 
                     res.cookie("coderCookieToken", token, {
                         maxAge: 3600000, //1 hora de vida
@@ -108,13 +110,13 @@ class UserController {
         res.redirect("/login");
     }
 
-    async github(req, res){ }
+    async github(req, res) { }
 
-    async githubCallback(req, res){
-            //La estrategia de Github nos retornará el usuario, entonces los agrego a mi objeto de Session: 
-    req.user = req.user;
-    req.login = true;
-    res.redirect("/current");
+    async githubCallback(req, res) {
+        //La estrategia de Github nos retornará el usuario, entonces los agrego a mi objeto de Session: 
+        req.user = req.user;
+        req.login = true;
+        res.redirect("/current");
     }
 
 
@@ -125,7 +127,7 @@ class UserController {
             //Buscar al usuario por email
             const user = await UserModel.findOne({ email });
 
-            if (!user) { 
+            if (!user) {
                 return res.status(404).send("User not found");
             }
 
@@ -193,22 +195,22 @@ class UserController {
     //Cambiar el rol del usuario: 
 
     async cambiarRolPremium(req, res) {
-        const {uid} = req.params; 
+        const { uid } = req.params;
         try {
-            const user = await UserModel.findById(uid); 
+            const user = await UserModel.findById(uid);
 
-            if(!user) {
-                return res.status(404).send("User not found"); 
+            if (!user) {
+                return res.status(404).send("User not found");
             }
 
             //Si el usuario existe, se cambia el rol
 
-            const nuevoRol = user.role === "usuario" ? "premium" : "usuario"; 
+            const nuevoRol = user.role === "usuario" ? "premium" : "usuario";
 
-            const actualizado = await UserModel.findByIdAndUpdate(uid, {role: nuevoRol});
-            res.json(actualizado); 
+            const actualizado = await UserModel.findByIdAndUpdate(uid, { role: nuevoRol });
+            res.json(actualizado);
         } catch (error) {
-            res.status(500).send("Server error"); 
+            res.status(500).send("Server error");
         }
     }
 

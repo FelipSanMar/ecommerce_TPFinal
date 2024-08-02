@@ -87,7 +87,7 @@ class ProductController {
 
             await productService.addProduct(newProduct);
            
-            res.status(200).send({ message: "Successfully added product" });
+            res.status(200).send({ message: "Successfully added product", payload:newProduct });
 
         } catch (error) {
             next(error);
@@ -117,8 +117,13 @@ class ProductController {
 
         try {
 
-            await productService.deleteProduct(id);
+           if(await productService.deleteProduct(id) === null){
+            res.status(400).send({ message: "Product Not Found" });
+           }else{
             res.status(200).send({ message: "Product Deleted" });
+           }                
+           
+           
 
         } catch (error) {
             res.status(500).json({ error: "Internal Server Error" });

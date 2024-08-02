@@ -54,7 +54,8 @@ class CartController {
             const producto = await productService.getProductByid(productId);
 
             if (!producto) {
-                return res.status(404).json({ message: 'Product not found' });
+                return res.status(404).send({ message: "Product not found" });
+               
             }
 
             // Verificar si el usuario es premium y si es propietario del producto
