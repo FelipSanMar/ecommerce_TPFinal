@@ -200,3 +200,17 @@ info: Cart found successfully
 info: Product Found
 info: Cart found successfully
 info: Product Found
+info: Product add
+info: Product Deleted
+error: ERROR: Product add Error al intentar crear producto {"causa":" Los datos estan incompletos o no son válidos. \n    Necesitamos recibir los siguientes datos: \n    - TITLE:       String  | Ingreso: undefined\n    - PRICE:       String  | Ingreso: undefined\n    - CATEGORY:    String  | Ingreso: undefined\n    - CODE:        String  | Ingreso: undefined\n    - DESCRIPTION: String  | Ingreso: undefined\n    ","code":2,"name":"Producto nuevo","stack":"Producto nuevo: Error al intentar crear producto\n    at CustomError.crearError (C:\\Users\\Felip\\Desktop\\17-Testing\\src\\services\\errors\\custom-error.js:5:23)\n    at ProductRepository.addProduct (C:\\Users\\Felip\\Desktop\\17-Testing\\src\\repositories\\product.repository.js:13:35)\n    at getProductByid (C:\\Users\\Felip\\Desktop\\17-Testing\\src\\controllers\\product.controller.js:88:34)\n    at Layer.handle [as handle_request] (C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at Route.dispatch (C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\route.js:119:3)\n    at Layer.handle [as handle_request] (C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (C:\\Users\\Felip\\Desktop\\17-Testing\\node_modules\\express\\lib\\router\\index.js:280:10)"}
+info: Product add
+warning: Code Repeat
+info: Product add
+info: Product add
+info: Product add
+info: Product add
+info: Product add
+info: Product add
+info: Product add
+info: Product add
+info: Product add
