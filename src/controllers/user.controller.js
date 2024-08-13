@@ -80,6 +80,10 @@ class UserController {
                     //Genera el token: 
                     const token = jwt.sign({ user: userLogin }, "coderhouse", { expiresIn: "1h" });
 
+                    // Actualizar la propiedad last_connection
+                    userLogin.last_connection = new Date();
+                    await userLogin.save();
+
                     //Establecer el token como Cookie: 
                     res.cookie("coderCookieToken", token, {
                         maxAge: 3600000, //1 hora de vida
@@ -104,6 +108,11 @@ class UserController {
 
 
     async logout(req, res) {
+        
+        // Actualizar la propiedad last_connection
+        req.user.last_connection = new Date();
+        await req.user.save();
+
         //Limpiar la cookie del Token
         res.clearCookie("coderCookieToken");
         //Redirigir a la pagina del Login. 
@@ -202,6 +211,18 @@ class UserController {
             if (!user) {
                 return res.status(404).send("User not found");
             }
+
+             //Se verifica si el usuario tiene la documentacion requerida: 
+             const documentacionRequerida = ["Identificacion", "Comprobante de domicilio", "Comprobante de estado de cuenta"];
+
+             const userDocuments = user.documents.map(doc => doc.name);
+ 
+             const tieneDocumentacion = documentacionRequerida.every(doc => userDocuments.includes(doc));
+ 
+             if (!tieneDocumentacion) {
+                 return res.status(400).send("El usuario no ha completado toda la documentacion");
+             }
+ 
 
             //Si el usuario existe, se cambia el rol
 

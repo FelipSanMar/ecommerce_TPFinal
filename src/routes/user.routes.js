@@ -22,7 +22,59 @@ router.get("/githubcallback", passport.authenticate("github", { failureRedirect:
 
 router.post("/requestPasswordReset", userController.requestPasswordReset);
 router.post("/passreset", userController.resetPassword);
+//Cambia el rol de un usuario a premium
 router.put("/premium/:uid", userController.cambiarRolPremium);
 
+const UserRepository = require("../repositories/user.repository.js");
+const userRepository = new UserRepository();
+//Vamos a crear un middleware para Multer y lo vamos a importar: 
+const upload = require("../middleware/multer.js");
+
+router.post("/:uid/documents", upload.fields([{ name: "document" }, { name: "products" }, { name: "profile" }]), async (req, res) => {
+    const { uid } = req.params;
+    const uploadedDocuments = req.files;
+
+    try {
+        const user = await userRepository.findById(uid);
+
+        if (!user) {
+            return res.status(404).send("Usuario no encontrado");
+        }
+
+        //Verificar si se suben los documentos y se actualiza el usuario: 
+
+        if (uploadedDocuments) {
+            if (uploadedDocuments.document) {
+                user.documents = user.documents.concat(uploadedDocuments.document.map(doc => ({
+                    name: doc.originalname,
+                    reference: doc.path
+                })))
+            }
+
+            if (uploadedDocuments.products) {
+                user.documents = user.documents.concat(uploadedDocuments.products.map(doc => ({
+                    name: doc.originalname,
+                    reference: doc.path
+                })))
+            }
+
+            if (uploadedDocuments.profile) {
+                user.documents = user.documents.concat(uploadedDocuments.profile.map(doc => ({
+                    name: doc.originalname,
+                    reference: doc.path
+                })))
+            }
+        }
+
+        //Guardar cambios en la base de datos : 
+
+        await user.save();
+
+        res.status(200).send("Documentos cargados exitosamente");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Server Error");
+    }
+})
 
 module.exports = router;
