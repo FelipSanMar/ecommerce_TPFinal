@@ -27,9 +27,9 @@ const renderProductos = (productos) => {
 
         //Agregamos el evento al boton de eliminar producto: 
         card.querySelector("button").addEventListener("click", () => {
-            if(role == "premium" && item.owner === email){
+            if(role == 'premium' && item.owner === email){
                 eliminarProducto(item._id);
-            }else if(role === "admin"){
+            }else if(role === 'admin'){
                 eliminarProducto(item._id);
             }else{
                 Swal.fire({
@@ -59,7 +59,11 @@ const agregarProducto = () => {
     const role = document.getElementById("role").textContent;
     const email = document.getElementById("email").textContent;
 
+    console.log("Dentro de realtimeproducts");
+    console.log("role:", role);
     const owner = role === "premium" ? email : "admin";
+    console.log("owner:", owner);
+    
 
     const producto = {
         title: document.getElementById("title").value,

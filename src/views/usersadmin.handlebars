@@ -1,0 +1,70 @@
+<div class="admin-user-container">
+    <h1 class="site-title">Administrar Usuarios</h1>
+
+    <!-- Botón para regresar a /current -->
+    <div class="back-button" style="margin-bottom: 20px; padding-top: 70px;">
+        <a href="/current" class="btn-back">Volver al Perfil</a>
+    </div>
+
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Documentos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{this.firstName}} {{this.lastName}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.role}}</td>
+                <td class="documents-status">
+                    {{#if this.documents.length}}
+                        &#10004; <!-- Tick verde -->
+                    {{else}}
+                        &#10008; <!-- Cruz roja -->
+                    {{/if}}
+                </td>
+                <td>
+                    <form action="/eliminarUser" method="POST" class="user-action-form">
+                        <input type="hidden" name="uid" value="{{this._id}}">
+                        <button type="submit" class="btn-delete">Eliminar</button>
+                    </form>
+
+                    <form class="user-action-form" onsubmit="handleFormSubmit(event, '{{this._id}}')">
+                        <button type="submit" class="btn-premium">Cambiar a Premium</button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Función para manejar el envío del formulario para cambiar el rol a premium
+    function handleFormSubmit(event, userId) {
+        event.preventDefault();  // Evita el envío predeterminado del formulario
+
+        fetch(`/api/users/premium/${userId}`, {
+            method: 'PUT',  // Especifica el método HTTP PUT
+            headers: {
+                'Content-Type': 'application/json'  // Define el tipo de contenido
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Recarga la página para reflejar los cambios
+                window.location.reload();
+            } else {
+                // Manejo de errores
+                console.error('Error al cambiar el rol del usuario a Premium');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>

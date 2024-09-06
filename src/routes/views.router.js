@@ -10,13 +10,12 @@ const checkUserRole = require("../middleware/checkrole.js");
 
 
 
-//router.get("/products", checkUserRole(['usuario']),passport.authenticate('jwt', { session: false }), viewsController.renderProducts);
+
 router.get("/products", passport.authenticate('jwt', { session: false }), checkUserRole(['usuario', 'premium']), viewsController.renderProducts);
 
 router.get("/carts/:cid", viewsController.renderCart);
 router.get("/login", viewsController.renderLogin);
 router.get("/register", viewsController.renderRegister);
-//router.get("/current", passport.authenticate("jwt", { session: false }), viewsController.renderCurrent );
 router.get("/current", passport.authenticate("jwt", { session: false }), (req, res, next) => {
     next();
 }, viewsController.renderCurrent);
@@ -28,6 +27,9 @@ router.get("/chat", checkUserRole(['usuario', 'premium']) ,viewsController.rende
 router.get("/passreset", viewsController.renderResetPassword);
 router.get("/password", viewsController.renderCambioPassword);
 router.get("/acksendemail", viewsController.renderConfirmacion);
+
+//administrar usuarios
+router.get("/usersadmin", checkUserRole(['admin']), viewsController.renderAdminUser);
 
 module.exports = router; 
 

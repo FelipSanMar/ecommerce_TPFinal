@@ -13,7 +13,9 @@ const userController = new UserController();
 
 router.post("/", userController.register);
 router.post("/login", userController.login);
-router.get("/logout", userController.logout);
+router.get("/logout", passport.authenticate("jwt", { session: false }), (req, res, next) => {
+    next();
+}, userController.logout);
 
 
 //GITHUB

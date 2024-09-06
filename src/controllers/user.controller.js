@@ -53,8 +53,8 @@ class UserController {
             });
 
             // Redirigir con código de estado en la URL
-            res.redirect(201, `/current?status=201`);
-            //res.redirect("/current" );
+        //    res.redirect(201, `/current?status=201`);
+            res.redirect("/current" );
 
         } catch (error) {
             res.status(500).send("Error interno del servidor");
@@ -107,16 +107,38 @@ class UserController {
     }
 
 
-    async logout(req, res) {
-        
-        // Actualizar la propiedad last_connection
-        req.user.last_connection = new Date();
-        await req.user.save();
+    // async logout(req, res) {
 
-        //Limpiar la cookie del Token
-        res.clearCookie("coderCookieToken");
-        //Redirigir a la pagina del Login. 
-        res.redirect("/login");
+    //     Actualizar la propiedad last_connection
+    //    console.log("req.user:", req.user);
+    //     console.log("req.user.last_connection 1:", req.user.user.last_connection);
+    //     console.log("req.user.last_connection:", req.user.user.first_name);
+    //     req.user.user.last_connection = new Date();
+    //     console.log("req.user.last_connection 2:", req.user.user.last_connection);
+    //    console.log("req.user.user:",req.user.user);
+    //     await req.user.user.save();
+
+    //     Limpiar la cookie del Token
+    //     res.clearCookie("coderCookieToken");
+    //     Redirigir a la pagina del Login. 
+    //     res.redirect("/login");
+    // }
+
+    async logout(req, res) {
+        try {
+
+            req.user.last_connection = new Date();
+
+            await req.user.save();
+
+            // Limpiar la cookie del Token
+            res.clearCookie("coderCookieToken");
+            // Redirigir a la página del Login.
+            res.redirect("/login");
+        } catch (error) {
+            console.error("Error en logout:", error);
+            res.status(500).send("Error en el servidor");
+        }
     }
 
     async github(req, res) { }
@@ -205,24 +227,26 @@ class UserController {
 
     async cambiarRolPremium(req, res) {
         const { uid } = req.params;
+        console.log("CAMBIO ROL PREMIUM");
         try {
             const user = await UserModel.findById(uid);
-
+            console.log("Cambio de rol:", user);
             if (!user) {
                 return res.status(404).send("User not found");
             }
 
-             //Se verifica si el usuario tiene la documentacion requerida: 
-             const documentacionRequerida = ["Identificacion", "Comprobante de domicilio", "Comprobante de estado de cuenta"];
+            //Se verifica si el usuario tiene la documentacion requerida: 
+            const documentacionRequerida = ["Identificacion", "Comprobante de domicilio", "Comprobante de estado de cuenta"];
 
-             const userDocuments = user.documents.map(doc => doc.name);
- 
-             const tieneDocumentacion = documentacionRequerida.every(doc => userDocuments.includes(doc));
- 
-             if (!tieneDocumentacion) {
-                 return res.status(400).send("El usuario no ha completado toda la documentacion");
-             }
- 
+            const userDocuments = user.documents.map(doc => doc.name);
+
+            const tieneDocumentacion = documentacionRequerida.every(doc => userDocuments.includes(doc));
+
+            if (!tieneDocumentacion) {
+                console.log("No te cambio de rol porque no tenes documentacion");
+                return res.status(400).send("El usuario no ha completado toda la documentacion");
+            }
+
 
             //Si el usuario existe, se cambia el rol
 

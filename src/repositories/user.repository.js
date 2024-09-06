@@ -17,6 +17,15 @@ class UserRepository {
         }
     }
 
+    async findUser() {
+        try {
+            const arrayUser = await UserModel.find();
+            return arrayUser;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async create(user) {
         try {
             return await user.save();

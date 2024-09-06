@@ -1,19 +1,23 @@
-<h1>Mi Perfil</h1>
+<div class="profile-container">
+    <h1 class="site-title">Mi Perfil</h1>
 
-<div class="profile-card">
-	<p>Bienvenido, {{user.firstName}} {{user.lastName}}!</p>
-	<p>Rol: {{user.role}}</p>
+    <div class="user-info">
+        <p>Bienvenido/a, {{user.firstName}} {{user.lastName}}!</p>
+        <p><strong>Rol:</strong> {{user.role}}</p>
+    </div>
 
-	<a href="/api/users/logout">Logout |</a>
+    <div class="button-group">
+        {{#if this.isAdmin}}
+            <a class="btn-panel" href="/realtimeproducts">Productos</a>
+			<a class="btn-panel" href="/usersadmin">Usuarios </a>
+        {{else}}
+            {{#if this.isPremium}}
+                <a class="btn-panel" href="/realtimeproducts">Tus Productos</a>
+            {{/if}}
+            <a class="btn-panel" href="/chat">Chat En Vivo</a>
+            <a class="btn-panel" href="/products">Productos</a>
+        {{/if}}
 
-	{{#if this.isAdmin}}
-	<a class="btnMios" href="/realtimeproducts">Modificar Productos</a>
-	{{else}}
-	{{#if this.isPremium}}
-	<a class="btnMios" href="/realtimeproducts">Panel Premium</a>
-	{{/if}}
-	<a class="btnMios" href="/chat">Chat en vivo |</a>
-	<a class="btnMios" href="/products">Productos</a>
-	{{/if}}
+        <a href="/api/users/logout" class="btn-logout">Logout</a>
+    </div>
 </div>
-

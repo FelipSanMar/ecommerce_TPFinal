@@ -36,7 +36,10 @@ class CartRepository {
             if (!cart) {
                 throw new Error('Cart not found');
             }
-            const existProduct = cart.products.find(item => item.product.toString() === productId);
+          //  const existProduct = cart.products.find(item => item.product.toString() === productId);
+          const existProduct = cart.products.find(item => item.product._id.toString() === productId.toString());
+            
+
             if (cart) {
                 if (existProduct) {
                     existProduct.quantity += quantity;

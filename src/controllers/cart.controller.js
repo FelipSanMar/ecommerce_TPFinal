@@ -55,7 +55,7 @@ class CartController {
 
             if (!producto) {
                 return res.status(404).send({ message: "Product not found" });
-               
+
             }
 
             // Verificar si el usuario es premium y si es propietario del producto
@@ -64,7 +64,8 @@ class CartController {
             // }
             const carro = await cartService.addProductsByCart(req.params.cid, req.params.pid, quantity);
 
-            res.json(carro);
+            //res.json(carro);
+            res.json({ success: true, carro });
 
         } catch (error) {
             console.error('Error en addProductsByCart:', error);
@@ -198,10 +199,10 @@ class CartController {
                 code: generateUniqueCode(),
                 purchase_datetime: new Date(),
                 amount: calcularTotal(cart.products),
-                purchaser: userWithCart._id 
+                purchaser: userWithCart._id
             });
             await ticket.save();
-    console.log("TICKET:" + ticket);
+            console.log("TICKET:" + ticket);
 
             // Eliminar del carrito los productos que sí se compraron
             cart.products = cart.products.filter(item => productosNoDisponibles.some(productId => productId.equals(item.product)));
@@ -215,8 +216,6 @@ class CartController {
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }
-
-
 
 
 }

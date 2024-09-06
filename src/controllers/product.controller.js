@@ -6,6 +6,9 @@ const CustomError = require("../services/errors/custom-error.js");
 const { generarInfoError } = require("../services/errors/info.js");
 const { EErrors } = require("../services/errors/enums.js");
 const ProductModel = require("../models/products.model.js");
+const EmailManager = require("../services/email.js");
+
+const emailManager = new EmailManager;
 
 
 
@@ -19,7 +22,7 @@ class ProductController {
             const sort = req.query.sort === 'desc' ? -1 : req.query.sort === 'asc' ? 1 : null;
             const query = req.query.query || null;
 
-            
+
 
             //Objeto de opciones para la paginacion
             const options = {
@@ -86,8 +89,8 @@ class ProductController {
         try {
 
             await productService.addProduct(newProduct);
-           
-            res.status(200).send({ message: "Successfully added product", payload:newProduct });
+
+            res.status(200).send({ message: "Successfully added product", payload: newProduct });
 
         } catch (error) {
             next(error);
@@ -114,23 +117,32 @@ class ProductController {
     async deleteProduct(req, res) {
 
         const id = req.params.pid;
+        const productDeleted = await productService.deleteProduct(id);
 
         try {
 
-           if(await productService.deleteProduct(id) === null){
-            res.status(400).send({ message: "Product Not Found" });
-           }else{
-            res.status(200).send({ message: "Product Deleted" });
-           }                
-           
-           
+            if (productDeleted === null) {
+                res.status(400).send({ message: "Product Not Found" });
+            } else {
+                //Si el usuario es premium notificar que se elimino un producto
+                if (productDeleted.owner && productDeleted.owner == 'premium') {
+                    emailManager.enviarCorreoNotificacion(productDeleted.owner, `
+                    Queríamos informarte que el siguiente producto fue eliminado de la tienda:<br>
+                    Titulo:  ${productDeleted.title} <br>
+                    Descripción: ${productDeleted.description} <br>
+                    Código: ${productDeleted.code} <br>
+                    Precio: ${productDeleted.price} <br>
+                `);
+                }
+                res.status(200).send({ message: "Product Deleted" });
+            }
+
+
 
         } catch (error) {
             res.status(500).json({ error: "Internal Server Error" });
         }
     }
-
-
 
 }
 

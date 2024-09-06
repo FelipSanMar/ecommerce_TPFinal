@@ -19,12 +19,32 @@ const initializePassport = () => {
         secretOrKey: "coderhouse"
     }, async (jwt_payload, done) => {
         try {
-            return done(null, jwt_payload);
+            const user = await UserModel.findById(jwt_payload.user._id);
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
         } catch (error) {
             return done(error);
         }
     }))
 }
+
+
+
+// const initializePassport = () => {
+//     passport.use("jwt", new JWTStrategy({
+//         jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+//         secretOrKey: "coderhouse"
+//     }, async (jwt_payload, done) => {
+//         try {
+//             return done(null, jwt_payload);
+//         } catch (error) {
+//             return done(error);
+//         }
+//     }))
+// }
 
 const cookieExtractor = (req) => {
     let token = null;

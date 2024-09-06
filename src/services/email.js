@@ -55,6 +55,27 @@ class EmailManager {
         }
     }
 
+    async enviarCorreoNotificacion(email, mensaje){
+      
+        try {
+            const mailOptions = {
+                from: "<ecommercecoder22@gmail.com>",
+                to: email,
+                subject: "Notificacion",
+                html: `
+                        <h1> Notificacion </h1>
+                        <p> ${mensaje} ! </p>
+
+                `
+            }
+            await this.transporter.sendMail(mailOptions);
+
+
+        } catch (error) {
+            console.log("Error al enviar el correo de restablecimiento");
+        }
+    }
+
 }
 
 

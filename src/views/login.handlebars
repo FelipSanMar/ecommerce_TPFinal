@@ -1,16 +1,46 @@
-<h1>Login</h1>
-<form class="formulario" action="/api/users/login" method="POST">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <button type="submit" class="btnMios">Login</button>
-    <a href="/register">Register</a>
- <p>¿Olvidaste la contraseña? <a href="/passreset"> Restablecer Contraseña </a></p>
-</form>
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrón - Iniciar Sesión</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<a href="/api/users/github"> GITHUB </a>
+<body>
+    <div class="login-container">
+        <h1 class="site-title">Electrón</h1>
+        <p class="site-tagline">Todo en Electrónica</p>
 
+        <div class="login-box">
+            <form action="/api/users/login" method="POST">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-login">Iniciar Sesión</button>
+            </form>
+
+            <hr>
+
+            <div class="social-login">
+                <p>O inicia sesión con:</p>
+                <a href="/api/users/github" class="btn-github">
+                    <img src="/images/github.png" alt="GitHub Logo">
+                    GitHub
+                </a>
+            </div>
+
+            <div class="register-link">
+                <p>¿No tienes una cuenta? <a href="/register">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

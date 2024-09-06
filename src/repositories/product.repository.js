@@ -1,4 +1,4 @@
-//ProductManager.js
+//product.repository.js
 
 const ProductModel = require("../models/products.model.js");
 const CustomError = require("../services/errors/custom-error.js");

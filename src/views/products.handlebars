@@ -1,34 +1,64 @@
-{{#if user}}
-<header>
-    <p>Bienvenido: {{user.first_name}} {{user.last_name}}!</p>
-    <p>Rol: {{user.role}} </p>
-    <a href="/api/users/logout">Logout</a>
-</header>
-{{else}}
-<p>No se encontraron datos del usuario.</p>
-{{/if}}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+    {{#if user}}
+    <header>
+        <div class="header-container">
+            <p class="welcome-message">Bienvenido: {{user.first_name}} {{user.last_name}}!</p>
+            <p class="user-role">Rol: {{user.role}}</p>
+            <a href="/api/users/logout" class="logout-button">Logout</a>
+        </div>
+    </header>
 
-<hr>
+    <div id="user-data" 
+        data-user-id="{{user._id}}" 
+        data-user-email="{{user.email}}" 
+        data-cart-id="{{user.cart}}">
+    </div>
 
-<h1> LISTA DE PRODUCTOS </h1>
+    {{else}}
+    <p>No se encontraron datos del usuario.</p>
+    {{/if}}
 
-{{#each products}}
-<div>
-    <h2>{{title}}</h2>
-    <p>{{description}}</p>
-    <p>Price: ${{price}}</p>
-    <p>Category: {{category}} </p>
-    <button> Agregar al Carrito </button>
-</div>
-{{/each}}
+    <hr>
 
+    <h1>LISTA DE PRODUCTOS</h1>
 
-{{#if hasPrevPage}}
-<a href="/products?page={{prevPage}}"> Anterior </a>
-{{/if}}
-{{#if hasNextPage}}
-<a href="/products?page={{nextPage}}"> Siguiente </a>
-{{/if}}
+    <div class="products-container">
+        {{#each products}}
+        <div class="product-card">
+            <h2 class="product-title">{{title}}</h2>
+            <p class="product-description">{{description}}</p>
+            <p class="product-price">Price: ${{price}}</p>
+            <p class="product-category">Category: {{category}}</p>
+            <p class="product-id">ID: {{_id}}</p>
+            <button 
+                type="button" 
+                class="addToCart" 
+                data-product-id="{{_id}}"> 
+                <img src="/images/carrito.png" alt="Add to Cart" class="add-to-cart-icon">
+                Agregar al Carrito 
+            </button>
+        </div>
+        {{/each}}
+    </div>
 
+    {{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}" class="pagination-button">Anterior</a>
+    {{/if}}
+    {{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}" class="pagination-button">Siguiente</a>
+    {{/if}}
 
-<p>Pagina {{currentPage}} de {{totalPages}} </p>
+    <p class="pagination-info">Página {{currentPage}} de {{totalPages}}</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/buttonAddToCarts.js"></script>
+</body>
+</html>

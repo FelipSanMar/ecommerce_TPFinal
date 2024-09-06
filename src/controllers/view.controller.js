@@ -3,6 +3,9 @@ const CartRepository = require("../repositories/cart.repository.js");
 const cartRepository = new CartRepository();
 const UserDTO = require("../dto/user.dto.js");
 
+const UserRepository = require("../repositories/user.repository.js");
+const userRepository = new UserRepository();
+
 class ViewsController {
 
     async renderChat(req, res) {
@@ -32,10 +35,10 @@ class ViewsController {
 
 
             const productsFinish = products.docs.map(prod => {
-                const { _id, ...rest } = prod.toObject();
+                const { ...rest } = prod.toObject();  //Original -> const { _id, ...rest } || Se quita el id para agregarlo en el front 
                 return rest;
             })
-        
+
 
             res.render("products", {
                 user: req.user.user,
@@ -105,17 +108,17 @@ class ViewsController {
         if (!req.user) {
             return res.status(403).send('No user data available');
         }
-    
-        const { first_name, last_name, age, email, role } = req.user.user;
-       
+
+        const { first_name, last_name, age, email, role } = req.user;
+
         const userDto = new UserDTO(first_name, last_name, age, email, role);
-    
+
         const isAdmin = role === 'admin';
         const isPremium = req.user.role === 'premium';
-       // res.render("current", { user: userDto, isAdmin, isPremium });
+        // res.render("current", { user: userDto, isAdmin, isPremium });
 
-         // Si el parámetro de consulta "test" está presente, devuelve los datos en formato JSON
-         if (req.query.test === 'true') {
+        // Si el parámetro de consulta "test" está presente, devuelve los datos en formato JSON
+        if (req.query.test === 'true') {
             return res.status(200).json({ user: userDto, isAdmin, isPremium });
         }
 
@@ -125,7 +128,16 @@ class ViewsController {
 
     async renderRealTimeProducts(req, res) {
         try {
-            res.render("realtimeproducts");
+
+            const { email, role } = req.user.user; //req.user.user;
+            console.log("ROLE:", role);
+            console.log("EMAIL:", email);
+
+
+            res.render("realtimeproducts", {
+                role,
+                email
+            });
         } catch (error) {
             console.log("error en la vista real time", error);
             res.status(500).json({ error: "Error interno del servidor" });
@@ -136,16 +148,39 @@ class ViewsController {
         res.render("chat");
     }
 
-    async renderResetPassword(req, res){
-        res.render("passreset"); 
+    async renderResetPassword(req, res) {
+        res.render("passreset");
     }
 
-    async renderCambioPassword(req, res){
-        res.render("passchange"); 
+    async renderCambioPassword(req, res) {
+        res.render("passchange");
     }
 
-    async renderConfirmacion(req, res){
-        res.render("acksendemail"); 
+    async renderConfirmacion(req, res) {
+        res.render("acksendemail");
+    }
+
+    async renderAdminUser(req, res) {
+        try {
+            const users = await userRepository.findUser();
+    
+            // Convierte los usuarios a texto plano
+            const plainUsers = users.map(user => {
+                return {
+                    _id: user._id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    email: user.email,
+                    role: user.role,
+                    documents: user.documents,
+                    last_connection: user.last_connection
+                };
+            });
+    
+            res.render("usersadmin", { users: plainUsers });
+        } catch (error) {
+            res.status(500).json({ status: "error", error: "Error al obtener los usuarios" });
+        }
     }
     
 

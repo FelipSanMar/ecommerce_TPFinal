@@ -12,6 +12,7 @@ const checkUserRole = (allowedRoles) => (req, res, next) => {
                 console.log("ROL:",userRole);
               //  console.log(userRole);
                 if (allowedRoles.includes(userRole)) {
+                    req.user = decoded; // Almacenar el token decodificado en req.user
                     next();
                 } else {
                     res.status(403).send('Acceso denegado. No tienes permiso para acceder a esta página.');
