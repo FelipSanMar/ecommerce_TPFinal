@@ -1,69 +1,62 @@
-
-
 const socket = io();
-const role = document.getElementById("role").textContent;
-const email = document.getElementById("email").textContent;
+const role = document.getElementById("role").textContent.trim();  // Obtener el rol del usuario
+const email = document.getElementById("email").textContent.trim();  // Obtener el email del usuario
 
+// Escuchar productos actualizados del servidor
 socket.on("productos", (data) => {
     renderProductos(data);
-})
+});
 
-
-//Función para renderizar el listado de productos
-
+// Función para renderizar el listado de productos
 const renderProductos = (productos) => {
     const contenedorProductos = document.getElementById("contenedorProductos");
-    contenedorProductos.innerHTML = "";  //Se utiliza para evitar que se llene de productos fantasmas. Se limpia con un inner de espacios vacios
+    contenedorProductos.innerHTML = "";  // Limpiar el contenedor antes de renderizar nuevos productos
 
     productos.forEach(item => {
-        const card = document.createElement("div");
-        card.innerHTML = `
-                            <p> ID: ${item._id} </p>
-                            <p> Titulo:  ${item.title} </p>
-                            <p> Precio: ${item.price} </p>
-                            <button> Eliminar producto </button>
-                        `;
-        contenedorProductos.appendChild(card);
+        // Los usuarios premium solo pueden ver sus propios productos, admin puede ver todos
+        if (role === "admin" || (role === "premium" && item.owner === email)) {
+            const card = document.createElement("div");
+            card.innerHTML = `
+                <p><strong>ID:</strong> ${item._id}</p>
+                <p><strong>Título:</strong> ${item.title}</p>
+                <p><strong>Precio:</strong> ${item.price}</p>
+                <button>Eliminar producto</button>
+            `;
+            contenedorProductos.appendChild(card);
 
-        //Agregamos el evento al boton de eliminar producto: 
-        card.querySelector("button").addEventListener("click", () => {
-            if(role == 'premium' && item.owner === email){
-                eliminarProducto(item._id);
-            }else if(role === 'admin'){
-                eliminarProducto(item._id);
-            }else{
-                Swal.fire({
-                    title: "Error",
-                    text: "No posee permisos para borrar este producto"
-                })
-            }
-            
-        })
-    })
-}
+            // Agregamos el evento al botón de eliminar producto
+            card.querySelector("button").addEventListener("click", () => {
+                if (role === "premium" && item.owner === email) {
+                    eliminarProducto(item._id);
+                } else if (role === "admin") {
+                    eliminarProducto(item._id);
+                } else {
+                    Swal.fire({
+                        title: "Error",
+                        text: "No tiene permisos para borrar este producto",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+};
 
-//Eliminar producto: 
-
+// Eliminar producto
 const eliminarProducto = (id) => {
     socket.emit("eliminarProducto", id);
-}
+};
 
-//Agregar producto: 
-
+// Agregar producto
 document.getElementById("btnEnviar").addEventListener("click", () => {
     agregarProducto();
-})
+});
 
 const agregarProducto = () => {
+    const role = document.getElementById("role").textContent.trim();
+    const email = document.getElementById("email").textContent.trim();
 
-    const role = document.getElementById("role").textContent;
-    const email = document.getElementById("email").textContent;
-
-    console.log("Dentro de realtimeproducts");
-    console.log("role:", role);
-    const owner = role === "premium" ? email : "admin";
-    console.log("owner:", owner);
-    
+    const owner = role === "premium" ? email : "admin";  // Definir owner según el rol
 
     const producto = {
         title: document.getElementById("title").value,
@@ -74,7 +67,9 @@ const agregarProducto = () => {
         stock: document.getElementById("stock").value,
         category: document.getElementById("category").value,
         status: document.getElementById("status").value === "true",
-        owner
+        owner: owner  // El owner se asigna correctamente según el rol
     };
+
+    // Emitir el evento para agregar el producto
     socket.emit("agregarProducto", producto);
-}
+};

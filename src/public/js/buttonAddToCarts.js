@@ -1,46 +1,39 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButtons = document.querySelectorAll('.addToCart');
 
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute('data-product-id');
+            const cartId = button.getAttribute('data-cart-id');
+            const userId = button.getAttribute('data-user-id');
+            const quantity = document.getElementById(`quantity-${productId}`).value;
 
-
-document.querySelectorAll(".addToCart").forEach(button => {
-    button.addEventListener("click", () => {
-        addToCart(button);
+            // Enviar la solicitud al backend para agregar al carrito
+            fetch(`/api/carts/${cartId}/product/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId, quantity }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    title: 'Producto agregado al carrito',
+                    text: `Has agregado ${quantity} unidad(es) al carrito.`,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            })
+            .catch(error => {
+                console.error('Error al agregar al carrito:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo agregar el producto al carrito.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
     });
 });
-
-const addToCart = (button) => {
-    const productID = button.getAttribute("data-product-id");
-
-    // Obtener datos del usuario desde el DOM
-    const userData = document.getElementById("user-data");
-    const userID = userData.getAttribute("data-user-id");
-    const userEmail = userData.getAttribute("data-user-email");
-    const cartID = userData.getAttribute("data-cart-id");
-
-    console.log("Producto agregado al carrito");
-    console.log("ProductID:", productID);
-    console.log("UserID:", userID);
-    console.log("UserEmail:", userEmail);
-    console.log("CartID:", cartID);
-
-    //Como mejora se podria agregar la cantidad de productos a agregar 
-
-     // Enviar solicitud al servidor para agregar el producto al carrito
-     fetch(`/api/carts/${cartID}/product/${productID}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)coderCookieToken\s*=\s*([^;]*).*$)|^.*$/, "$1")}`
-        },
-        body: JSON.stringify({ productID, userID })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Server Response:", data);
-        if (data.success) {
-            console.log("Producto agregado exitosamente");
-        } else {
-            console.error("Error al agregar producto", data.error);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}

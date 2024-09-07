@@ -236,7 +236,7 @@ class UserController {
             }
 
             //Se verifica si el usuario tiene la documentacion requerida: 
-            const documentacionRequerida = ["Identificacion", "Comprobante de domicilio", "Comprobante de estado de cuenta"];
+ /*           const documentacionRequerida = ["Identificacion", "Comprobante de domicilio", "Comprobante de estado de cuenta"];
 
             const userDocuments = user.documents.map(doc => doc.name);
 
@@ -246,7 +246,7 @@ class UserController {
                 console.log("No te cambio de rol porque no tenes documentacion");
                 return res.status(400).send("El usuario no ha completado toda la documentacion");
             }
-
+*/
 
             //Si el usuario existe, se cambia el rol
 

@@ -605,3 +605,71 @@ info: Fetched products successfully
 info: Fetched products successfully
 info: Fetched products successfully
 info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+error: ERROR: Product add Error al intentar crear producto {"causa":" Los datos estan incompletos o no son válidos. \n    Necesitamos recibir los siguientes datos: \n    - TITLE:       String  | Ingreso: Holaa\n    - PRICE:       String  | Ingreso: \n    - CATEGORY:    String  | Ingreso: \n    - CODE:        String  | Ingreso: \n    - DESCRIPTION: String  | Ingreso: \n    ","code":2,"name":"Producto nuevo","stack":"Producto nuevo: Error al intentar crear producto\n    at CustomError.crearError (C:\\Users\\Felip\\Desktop\\proyectoFinal_ecommerce\\src\\services\\errors\\custom-error.js:5:23)\n    at ProductRepository.addProduct (C:\\Users\\Felip\\Desktop\\proyectoFinal_ecommerce\\src\\repositories\\product.repository.js:13:35)\n    at Socket.<anonymous> (C:\\Users\\Felip\\Desktop\\proyectoFinal_ecommerce\\src\\sockets\\socketManager.js:24:41)\n    at Socket.emit (node:events:517:28)\n    at Socket.emitUntyped (C:\\Users\\Felip\\Desktop\\proyectoFinal_ecommerce\\node_modules\\socket.io\\dist\\typed-events.js:69:22)\n    at C:\\Users\\Felip\\Desktop\\proyectoFinal_ecommerce\\node_modules\\socket.io\\dist\\socket.js:704:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)"}
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+warning: Code Repeat
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product add
+info: Fetched products successfully
+info: Product Deleted
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Found
+info: Cart found successfully
+info: Product added to cart successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Fetched products successfully
+info: Product Found
+info: Cart found successfully
+info: Product added to cart successfully
+info: Product Found
+info: Cart found successfully
+info: Product added to cart successfully

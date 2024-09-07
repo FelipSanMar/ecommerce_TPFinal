@@ -1,14 +1,47 @@
-/* Estilo general para la página de login */
+/* GLOBAL STYLES */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
 }
 
+h1, h2, h3 {
+    color: #333;
+}
+
+/* HEADER */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+}
+
+.welcome-message {
+    font-size: 1.2rem;
+}
+
+.user-role {
+    font-size: 1rem;
+    margin-left: 20px;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+/* LOGIN PAGE */
 .login-container {
     text-align: center;
     background-color: #fff;
@@ -66,6 +99,7 @@ body {
     background-color: #0056b3;
 }
 
+/* GITHUB LOGIN BUTTON */
 .social-login {
     margin-top: 20px;
 }
@@ -91,8 +125,7 @@ body {
     background-color: #24292e;
 }
 
-
-/* Estilos generales del perfil */
+/* PROFILE PAGE */
 .profile-container {
     text-align: center;
     background-color: #fff;
@@ -137,10 +170,6 @@ body {
     background-color: #0056b3;
 }
 
-.logout {
-    margin-top: 20px;
-}
-
 .btn-logout {
     display: block;
     width: 100%;
@@ -158,10 +187,7 @@ body {
     background-color: #c82333;
 }
 
-
-/*REGISTER*/
-
-/* Estilo para la vista de registro */
+/* REGISTER PAGE */
 .register-container {
     text-align: center;
     background-color: #fff;
@@ -176,16 +202,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
-
-.form-group {
-    text-align: left;
-}
-
-.form-group label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
 }
 
 .form-group input {
@@ -210,9 +226,7 @@ body {
     background-color: #218838;
 }
 
-/*ADMIN USERS*/
-
-/* Estilos para el contenedor y tabla */
+/* ADMIN USERS */
 .admin-user-container {
     max-width: 900px;
     margin: 50px auto;
@@ -238,60 +252,14 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Botón de regreso */
-.back-button {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.btn-back {
-    padding: 10px 20px;
-    background-color: #6c757d;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.btn-back:hover {
-    background-color: #5a6268;
-}
-
-/* Estado de los documentos */
-.documents-status {
-    text-align: center;
-}
-
-.documents-status .tick {
-    color: green;
-    font-size: 1.5rem;
-}
-
-.documents-status .cross {
-    color: red;
-    font-size: 1.5rem;
-}
-
-/* Botones de acción */
-.user-action-form {
-    display: inline;
-    margin: 0;
-    padding: 0;
-}
-
-.btn-delete, .btn-premium {
+/* BUTTONS */
+.btn-delete, .btn-premium, .btn-back {
     background-color: #007bff;
     color: white;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 5px;
-}
-
-.btn-delete:hover, .btn-premium:hover {
-    background-color: #0056b3;
 }
 
 .btn-delete {
@@ -300,4 +268,133 @@ body {
 
 .btn-delete:hover {
     background-color: #c82333;
+}
+
+.btn-premium:hover, .btn-back:hover {
+    background-color: #0056b3;
+}
+
+/* REAL-TIME PRODUCTS */
+.products-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.product-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.product-card p {
+    margin: 5px 0;
+}
+
+/* Cantidad de productos */
+.quantity-container {
+    margin-bottom: 15px;
+}
+
+.quantity-container input {
+    width: 60px;
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón agregar al carrito */
+.addToCart {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addToCart img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.addToCart:hover {
+    background-color: #0056b3;
+}
+
+/* FORM FOR ADDING PRODUCTS */
+.form-container {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form#productForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+form#productForm input,
+form#productForm select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form#productForm button {
+    grid-column: span 2;
+}
+
+/* PAGINACIÓN */
+.pagination-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.pagination-button:hover {
+    background-color: #0056b3;
+}
+
+.pagination-info {
+    text-align: center;
+    margin-top: 10px;
 }

@@ -1,28 +1,38 @@
-<h1>TUS PRODUCTOS</h1>
-<h2>Productos actualizados en tiempo real</h2>
-<h3 id="role">{{role}}</h3>
-<h3 id="email">{{email}}</h3>
-<a href="/current"> HOME </a>
+<div class="products-container">
+    <h1 class="site-title">Tus Productos</h1>
+    <h2>Productos actualizados en tiempo real</h2>
+    <h3 id="role">{{role}}</h3>
+    <h3 id="email">{{email}}</h3>
 
-<div id="contenedorProductos"></div>    
+    <!-- Botón para regresar a la página principal -->
+    <div class="back-button">
+        <a href="/current" class="btn-back">Volver a HOME</a>
+    </div>
 
-<h2>Formulario para agregar productos</h2>
+    <!-- Contenedor donde se mostrarán los productos en tiempo real -->
+    <div id="contenedorProductos" class="product-list"></div>
 
-<form>
-    <input type="text" id="title" placeholder="Titulo">
-    <input type="text" id="description" placeholder="Descripcion">
-    <input type="number" id="price" placeholder="Precio">
-    <input type="text" id="img" value="Sin Imagen">
-    <input type="text" id="code" placeholder="Código">
-    <input type="number" id="stock" placeholder="Stock">
-    <input type="text" id="category" placeholder="Categoria">
-    <select id="status">
-        <option value="true"> Activo </option>
-        <option value="false"> Inactivo </option>
-    </select>
-    <button type="button" id="btnEnviar"> Enviar </button>
-</form>
+    <!-- Formulario para agregar productos -->
+    <div class="form-container">
+        <h2>Agregar Nuevo Producto</h2>
+        <form id="productForm">
+            <input type="text" id="title" placeholder="Título" required>
+            <input type="text" id="description" placeholder="Descripción" required>
+            <input type="number" id="price" placeholder="Precio" required>
+            <input type="text" id="img" value="Sin Imagen">
+            <input type="text" id="code" placeholder="Código" required>
+            <input type="number" id="stock" placeholder="Stock" required>
+            <input type="text" id="category" placeholder="Categoría" required>
+            <select id="status" required>
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+            </select>
+            <button type="button" id="btnEnviar" class="btn-add">Enviar</button>
+        </form>
+    </div>
+</div>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-<script src="js/realTimeProducts.js"></script>
+<script src="/js/realTimeProducts.js"></script>

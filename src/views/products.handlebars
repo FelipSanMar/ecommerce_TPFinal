@@ -37,13 +37,22 @@
             <p class="product-description">{{description}}</p>
             <p class="product-price">Price: ${{price}}</p>
             <p class="product-category">Category: {{category}}</p>
-            <p class="product-id">ID: {{_id}}</p>
+
+            <!-- Selección de cantidad -->
+            <div class="quantity-container">
+                <label for="quantity-{{_id}}">Cantidad:</label>
+                <input type="number" id="quantity-{{_id}}" name="quantity" min="1" value="1">
+            </div>
+
+            <!-- Botón agregar al carrito con ícono -->
             <button 
                 type="button" 
                 class="addToCart" 
-                data-product-id="{{_id}}"> 
+                data-product-id="{{_id}}"
+                data-cart-id="{{../user.cart}}"
+                data-user-id="{{../user._id}}">
                 <img src="/images/carrito.png" alt="Add to Cart" class="add-to-cart-icon">
-                Agregar al Carrito 
+                Agregar al Carrito
             </button>
         </div>
         {{/each}}
@@ -59,6 +68,6 @@
     <p class="pagination-info">Página {{currentPage}} de {{totalPages}}</p>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/buttonAddToCarts.js"></script>
+    <script src="/js/buttonAddToCarts.js"></script>
 </body>
 </html>
