@@ -12,6 +12,15 @@
         <div class="header-container">
             <p class="welcome-message">Bienvenido: {{user.first_name}} {{user.last_name}}!</p>
             <p class="user-role">Rol: {{user.role}}</p>
+
+            <!-- Ícono del carrito de compras -->
+            <div class="cart-icon-container">
+                <a href="/checkout" class="cart-link">
+                    <img src="/images/carrito.png" alt="Cart Icon" class="cart-icon">
+                    <span id="cart-count">0</span> <!-- Mostrar el número de productos -->
+                </a>
+            </div>
+
             <a href="/api/users/logout" class="logout-button">Logout</a>
         </div>
     </header>
@@ -37,6 +46,7 @@
             <p class="product-description">{{description}}</p>
             <p class="product-price">Price: ${{price}}</p>
             <p class="product-category">Category: {{category}}</p>
+            <p class="product-stock">Stock Disponible: {{stock}}</p>
 
             <!-- Selección de cantidad -->
             <div class="quantity-container">
@@ -69,5 +79,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/buttonAddToCarts.js"></script>
+   
 </body>
 </html>

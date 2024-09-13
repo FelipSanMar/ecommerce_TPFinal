@@ -31,6 +31,9 @@ router.get("/acksendemail", viewsController.renderConfirmacion);
 //administrar usuarios
 router.get("/usersadmin", checkUserRole(['admin']), viewsController.renderAdminUser);
 
+//Checkout
+router.get('/checkout',checkUserRole(['usuario', 'premium']) ,viewsController.checkOut);
+
 module.exports = router; 
 
 

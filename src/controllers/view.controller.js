@@ -163,7 +163,7 @@ class ViewsController {
     async renderAdminUser(req, res) {
         try {
             const users = await userRepository.findUser();
-    
+
             // Convierte los usuarios a texto plano
             const plainUsers = users.map(user => {
                 return {
@@ -176,13 +176,30 @@ class ViewsController {
                     last_connection: user.last_connection
                 };
             });
-    
+
             res.render("usersadmin", { users: plainUsers });
         } catch (error) {
             res.status(500).json({ status: "error", error: "Error al obtener los usuarios" });
         }
     }
-    
+
+
+    async checkOut(req, res) {
+        try {
+
+            // El usuario debe estar logueado 
+            if (!req.user) {
+                return res.status(400).send("No se encontró el carrito para este usuario.");
+            }
+
+            // Renderiza la vista de checkout y pasa el cartId y otros datos del usuario
+            res.render('checkout', { user: req.user.user });
+        } catch (error) {
+            console.error("Error al cargar el checkout:", error);
+            res.status(500).json({ error: "Error interno del servidor" });
+        }
+    }
+
 
 
 }

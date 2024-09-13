@@ -30,7 +30,8 @@ class CartController {
 
             if (cart) {
 
-                return res.json(cart.products);
+                // return res.json(cart.products);
+                return res.status(200).json({ products: cart.products });
 
             } else {
 
@@ -38,7 +39,7 @@ class CartController {
             }
 
         } catch (error) {
-
+            console.error("Error al obtener los productos del carrito:", error);
             res.status(500).json({ error: "Internal Server Error" });
         }
     }

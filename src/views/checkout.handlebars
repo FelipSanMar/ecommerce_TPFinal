@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Carrito de Compras</h1>
+        </div>
+    </header>
+
+    <!-- Botones para regresar a productos y home -->
+    <div class="back-buttons-container">
+        <a href="/products" class="btn-back">Volver a Productos</a>
+        <a href="/current" class="btn-back">Volver a Home</a>
+    </div>
+
+    <!-- Agregar div con datos del carrito -->
+    <div id="user-data" 
+         data-user-id="{{user._id}}" 
+         data-cart-id="{{user.cart}}">
+    </div>
+
+    <div class="checkout-container">
+        <h2>Productos en tu carrito</h2>
+
+        <table class="checkout-table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="checkout-products">
+                <!-- Los productos se renderizan aca desde checkout.js -->
+            </tbody>
+        </table>
+
+        <div class="checkout-total">
+            <h3>Total: $<span id="total-price">0</span></h3>
+        </div>
+
+        <form action="/api/carts/{{user.cart}}/purchase" method="POST">
+            <button type="submit" class="btn-purchase">Realizar compra</button>
+        </form>
+    </div>
+
+    <script src="/js/checkout.js"></script> <!-- Script para manejar la vista de checkout -->
+</body>
+</html>

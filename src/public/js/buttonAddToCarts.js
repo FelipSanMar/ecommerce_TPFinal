@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addToCartButtons = document.querySelectorAll('.addToCart');
+    const cartCountElement = document.getElementById('cart-count');
 
     addToCartButtons.forEach(button => {
         button.addEventListener('click', () => {
             const productId = button.getAttribute('data-product-id');
             const cartId = button.getAttribute('data-cart-id');
-            const userId = button.getAttribute('data-user-id');
             const quantity = document.getElementById(`quantity-${productId}`).value;
 
             // Enviar la solicitud al backend para agregar al carrito
@@ -14,10 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userId, quantity }),
+                body: JSON.stringify({ quantity }),
             })
             .then(response => response.json())
             .then(data => {
+                // Actualizar el contador del carrito
+                cartCountElement.textContent = parseInt(cartCountElement.textContent) + parseInt(quantity);
+
                 Swal.fire({
                     title: 'Producto agregado al carrito',
                     text: `Has agregado ${quantity} unidad(es) al carrito.`,
